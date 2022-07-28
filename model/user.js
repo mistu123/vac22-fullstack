@@ -1,18 +1,22 @@
-import {NULL} from "mysql/lib/protocol/constants/types";
-
 class User {
     constructor() {}
 
     // register user
     registerUserSQL(obj) {
-        let sql = `INSERT INTO ecommerce_users (name,email,password,active,user_role) VALUES (`+
-            `'${obj.name}', '${obj.email}', '${obj.hash}', '${obj.active}', '${obj.user_role}');`;
+        let sql = `INSERT INTO expense_user (name, email, password) VALUES (`+
+            `'${obj.name}', '${obj.email}', '${obj.hash}');`;
         return sql;
     }
 
     // fetch user details
-    fetchUserDetailsSQL(type, value) {
-        let sql = `SELECT * FROM ecommerce_users as user where user.${type} = '${value}'`;
+    fetchUserDetailsSQL(email) {
+        let sql = `SELECT * FROM expense_user as user where user.email = '${email}'`;
+        return sql;
+    }
+
+    fetchUserLogin(email)
+    {
+        let sql = `SELECT * FROM expense_user WHERE email = '${email}'`;
         return sql;
     }
 }
