@@ -36,8 +36,8 @@ router.post("/register", async (req, res, next) => {
                                 res.status(200).json({
                                     message: 'User Registered successfully!',
                                     status: 200,
-                                    emailId: req.body.email
-                                    // resourceId: await util.emailSend(obj)
+                                    emailId: req.body.email,
+                                    resourceId: await util.emailSend(obj)
                                 });
                             } else {
                                 res.status(400).json({

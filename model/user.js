@@ -14,6 +14,12 @@ class User {
         return sql;
     }
 
+    // fetch users list
+    fetchUserList() {
+        let sql = `SELECT * FROM expense_user ORDER BY id DESC`;
+        return sql;
+    }
+
     fetchUserLogin(email)
     {
         let sql = `SELECT * FROM expense_user WHERE email = '${email}'`;
