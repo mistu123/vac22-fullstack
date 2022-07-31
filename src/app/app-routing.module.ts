@@ -3,8 +3,15 @@ import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './shared/layout/layout.component';
 import { AuthModule } from './views/auth/auth.module';
 import { OthersModule } from './views/others/others.module';
-import { FrontModule } from './views/front/front.module';
-// const authRoutes: Routes = [];
+import { ExpenseModule } from './views/expense/expense.module';
+import { AuthGuard } from './shared/services/auth/auth.guard';
+
+const authRoutes: Routes = [
+  {
+    path: 'expense',
+    loadChildren: () => ExpenseModule,
+  },
+];
 
 const routes: Routes = [
   {
@@ -24,23 +31,18 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: LayoutComponent,
-    children: [
-      {
-        path: 'front',
-        loadChildren: () => FrontModule,
-      },
-    ],
-  },
-  {
-    path: '',
-    component: LayoutComponent,
     children: [
       {
         path: 'others',
         loadChildren: () => OthersModule,
       },
     ],
+  },
+  {
+    path: '',
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
+    children: authRoutes,
   },
   {
     path: '**',

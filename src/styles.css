@@ -9,5 +9,22 @@ html {
   font-weight: 600;
   background: var(--white-color);
   color: var(--dark-color-shade--light) !important;
-  font-size: 16px;
+  font-size: 14px;
+}
+
+@media only screen and (min-width: 1421px) {
+  .responsive-layout {
+    width: 60%;
+    margin: 0 auto;
+  }
+  body {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-width: 1420px) {
+  .responsive-layout {
+    width: 80%;
+    margin: 0 auto;
+  }
 }

@@ -122,6 +122,9 @@ b,
 .font-weight-bolder {
   font-weight: 800 !important;
 }
+.font-weight-heavy {
+  font-weight: 900 !important;
+}
 
 .rounded-50 {
   border-radius: 0.5rem !important;

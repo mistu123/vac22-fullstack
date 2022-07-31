@@ -1,16 +1,19 @@
 <div class="d-flex justify-content-around container">
   <div class="my-auto position-relative">
-    <i class="fas fa-lock text-theme-secondary-light position-absolute" style="font-size: 280px; top: -70px; left: -30px"></i>
+    <i
+      class="fas fa-lock text-theme-secondary-light position-absolute"
+      style="font-size: 280px; top: -70px; left: -30px"
+    ></i>
     <div class="position-relative">
       <h3 class="font-weight-bold border-marker mb-4 position-relative">Access Denied</h3>
       <h4 class="font-weight-light my-auto high-z-index">
-        Sorry, you don't have permission to access this page. Contact site administrator to know more about your controls and permissions.
+        Sorry, you don't have permission to access this page. Contact site administrator to know more about your
+        controls and permissions.
       </h4>
-      <a [routerLink]="'/auth/login'" class="btn-theme-primary d-inline-flex mt-4 btn font-weight-bold">
+      <a [routerLink]="'/auth/welcome'" class="btn-theme-primary d-inline-flex mt-4 btn font-weight-bold">
         <i class="fas fa-arrow-left my-auto mr-2"></i> Go back to safety
       </a>
     </div>
   </div>
-  <img [src]="'assets/images/access-denied.gif'" class="my-auto" [width]="420" alt="image"/>
-
+  <img [src]="'assets/images/access-denied.gif'" class="my-auto" [width]="420" alt="image" />
 </div>

@@ -1,4 +1,18 @@
-<nav class="navbar w-100 font-weight-bold text-white high-z-index app-header px-5 bg-primary">Brainware University</nav>
-<div class="container-fluid my-3">
+<nav class="navbar w-100 d-flex justify-content-between font-weight-bolder text-warning px-5 py-4 bg-black">
+  <h4 class="my-auto font-weight-heavy d-inline-flex">
+    <span class="my-auto">Expense Tracker</span>
+  </h4>
+  <div class="my-auto d-flex justify-content-end">
+    <a class="d-inline-flex btn btn-warning my-auto font-weight-bolder me-4">
+      <span class="my-auto">Register Now</span>
+      <i class="fas fa-arrow-right my-auto ms-2"></i>
+    </a>
+    <h5 class="d-inline font-weight-bolder my-auto">
+      <i class="fas fa-lock my-auto me-2"></i>
+      <span class="my-auto">Login</span>
+    </h5>
+  </div>
+</nav>
+<div class="container-fluid px-0">
   <router-outlet></router-outlet>
 </div>
