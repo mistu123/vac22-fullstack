@@ -3,14 +3,32 @@
     <span class="my-auto">Expense Tracker</span>
   </h4>
   <div class="my-auto d-flex justify-content-end">
-    <a class="d-inline-flex btn btn-warning my-auto font-weight-bolder me-4">
+    <a
+      *ngIf="config.show === 'login'"
+      [routerLink]="['/']"
+      [queryParams]="{ show: 'register' }"
+      class="d-inline-flex btn btn-warning my-auto font-weight-bolder me-4"
+    >
       <span class="my-auto">Register Now</span>
       <i class="fas fa-arrow-right my-auto ms-2"></i>
     </a>
-    <h5 class="d-inline font-weight-bolder my-auto">
+
+    <a
+      *ngIf="config.show === 'register'"
+      [routerLink]="['/']"
+      [queryParams]="{ show: 'login' }"
+      class="
+        btn btn-link
+        shadow-none
+        text--size-15 text-warning text-decoration-none
+        d-inline
+        font-weight-bolder
+        my-auto
+      "
+    >
       <i class="fas fa-lock my-auto me-2"></i>
-      <span class="my-auto">Login</span>
-    </h5>
+      <span class="my-auto">Continue Login</span>
+    </a>
   </div>
 </nav>
 <div class="container-fluid px-0">
