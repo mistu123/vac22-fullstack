@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "dummy-sample": {
+    "expense-tracker": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -17,7 +17,7 @@
               "lodash",
               "apexcharts"
             ],
-            "outputPath": "dist/dummy-sample",
+            "outputPath": "dist/expense-tracker",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -148,29 +148,29 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "dummy-sample:build"
+            "browserTarget": "expense-tracker:build"
           },
           "configurations": {
             "hmr": {
               "hmr": true,
-              "browserTarget": "dummy-sample:build:hmr",
+              "browserTarget": "expense-tracker:build:hmr",
               "host": "0.0.0.0"
             },
             "dev": {
-              "browserTarget": "dummy-sample:build:dev"
+              "browserTarget": "expense-tracker:build:dev"
             },
             "stage": {
-              "browserTarget": "dummy-sample:build:stage"
+              "browserTarget": "expense-tracker:build:stage"
             },
             "production": {
-              "browserTarget": "dummy-sample:build:production"
+              "browserTarget": "expense-tracker:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "dummy-sample:build"
+            "browserTarget": "expense-tracker:build"
           }
         },
         "test": {
@@ -195,11 +195,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "dummy-sample:serve"
+            "devServerTarget": "expense-tracker:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "dummy-sample:serve:production"
+              "devServerTarget": "expense-tracker:serve:production"
             }
           }
         },
@@ -215,7 +215,7 @@
       }
     }
   },
-  "defaultProject": "dummy-sample",
+  "defaultProject": "expense-tracker",
   "cli": {
     "defaultCollection": "@angular-eslint/schematics"
   }

@@ -1,6 +1,6 @@
 {
-  "name": "dummy-sample",
-  "short_name": "dummy-sample",
+  "name": "expense-tracker",
+  "short_name": "expense-tracker",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

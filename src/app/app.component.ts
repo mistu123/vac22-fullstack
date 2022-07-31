@@ -16,7 +16,7 @@ import {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title = 'dummy-sample';
+  title = 'expense-tracker';
   config: any = {};
 
   constructor(private router: Router) {
