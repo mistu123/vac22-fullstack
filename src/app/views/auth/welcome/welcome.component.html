@@ -1,12 +1,12 @@
-<div class="bg-black w-100 d-block" style="height: calc(100vh - 81px)">
+<div class="bg-black w-100 d-block" style="height: calc(100vh - 66px)">
   <div class="responsive-layout py-4">
     <div class="row">
       <div class="col-md-6 py-5 px-0">
         <h1 class="font-weight-bolder py-5 text-white display-4">
-          A whole new way of tracking your everyday expense smartly & wisely.
+          A whole new way of tracking your daily expense smartly and wisely.
         </h1>
       </div>
-      <div class="col-md-5 offset-1">
+      <div class="col-md-5 offset-md-1 my-4">
         <section class="card border-0 shadow-lg">
           <div class="card-body px-5 py-4 my-3">
             <h3 class="font-weight-heavy mb-3">
@@ -14,19 +14,42 @@
             </h3>
             <div class="mb-3" *ngIf="config.show === 'register'">
               <label class="form-label">Your Name</label>
-              <input type="text" class="form-control" />
+              <input [(ngModel)]="formData.name" type="text" class="form-control" />
+              <div class="form-text text-danger font-weight-bold" *ngIf="validation.name">A valid name is required</div>
             </div>
             <div class="mb-3">
               <label class="form-label">Email address</label>
-              <input type="email" class="form-control" />
-              <div class="form-text">We'll never share your email with anyone else.</div>
+              <input
+                [(ngModel)]="formData.email"
+                type="email"
+                placeholder="e.g. youremail@gmail.com"
+                class="form-control"
+              />
+              <div class="form-text text-danger font-weight-bold" *ngIf="validation.email">
+                Valid email address is required
+              </div>
             </div>
             <div class="mb-3">
               <label class="form-label">Password</label>
-              <input type="password" class="form-control" />
+              <input [(ngModel)]="formData.password" placeholder="Min 6 Chars" type="password" class="form-control" />
+              <div class="form-text text-danger font-weight-bold" *ngIf="validation.password">Not a Valid password</div>
             </div>
-            <button type="button" class="btn btn-warning font-weight-bolder text-capitalize w-100 mt-2">
-              {{ config.show === 'register' ? 'complete registration' : 'continue login' }}
+            <button
+              (click)="authSubmit()"
+              [disabled]="config.isLoading"
+              type="button"
+              class="btn btn-warning font-weight-bolder w-100 mt-2 d-inline-flex justify-content-center"
+            >
+              <span class="my-auto me-2">
+                {{ config.show === 'register' ? 'Complete Registration' : 'Continue Login' }}
+              </span>
+              <img
+                [src]="'/assets/images/loader.gif'"
+                *ngIf="config.isLoading"
+                width="15"
+                alt="loader"
+                class="my-auto"
+              />
             </button>
           </div>
         </section>

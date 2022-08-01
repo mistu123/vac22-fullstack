@@ -7,7 +7,7 @@ export const environment = {
   environmentName: 'hmr',
   googleOAuthKey: '',
   googleRecaptchaKey: '',
-  apiUrl: '',
+  apiUrl: 'http://127.0.0.1:5000',
   apiKey: '',
   baseUrlHost: '',
 };

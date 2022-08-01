@@ -29,12 +29,14 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
+              "node_modules/toastify-js/src/toastify.css",
+              "node_modules/animate.css/animate.min.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/styles/variables.css",
               "src/assets/styles/theme.css",
               "src/assets/styles/utility.css",
-              "src/assets/styles/animate.min.css",
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/styles/override.css"
             ],
             "scripts": [],
             "vendorChunk": true,

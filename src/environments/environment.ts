@@ -10,12 +10,4 @@ export const environment = {
   apiUrl: '',
   apiKey: '',
   baseUrlHost: '',
-  sfdcCredential: {
-    accessKey: '',
-    secretKey: '',
-    userName: '',
-    password: '',
-    oAuthUrl: '',
-    instanceUrl: '',
-  },
 };

@@ -1,42 +1,36 @@
 /* CSS custom properties overrides (variables) */
 :root {
-  --primary-color-shade: #c73735;
-  --primary-color-shade--light: #ffa3a1;
-  --primary-color-shade--lighter: #e9adac;
-  --primary-color-shade--lightest: #fee2c4;
-  --primary-color-shade--dark: #860200;
-
-  --seconday-color-shade: #531cb3;
-  --seconday-color-shade--light: #a88dd8;
-  --seconday-color-shade--lighter: #f5ebfc;
-  --seconday-color-shade--dark: #290d59;
+  --primary-color-shade: #2f47c2;
+  /*--primary-color-shade: #095FD4;*/
+  --primary-color-shade--light: #d8e7ff;
+  --primary-color-shade--lightest: #ecf5ff;
+  --primary-color-shade--dark: #213289; /*#253899*/
+  --primary-color-shade--darker: #010c40;
 
   --black-color: #000000;
   --white-color: #ffffff;
-  --off-white-color: #f7f7f7;
 
-  --dark-color-shade: #000428;
-  --dark-color-shade--light: #2c2f3b;
+  --dark-color-shade: #2c2f3b;
+  --light-color-shade: #f8f9fa;
 
-  --success-color-shade: #28a745;
-  --success-color-shade--lightest: #f1f9f5;
+  --success-color-shade: #12a83f;
+  --success-color-shade-light: #64ee8e;
+  --success-color-shade--lightest: #d9ffe4;
+  --success-color-dark: #0a6425;
 
-  --warning-color-shade: #ffd33e;
-  --warning-color-shade--dark: #e5bd37;
-  --warning-color-shade--lighter: #fdf2c3;
-  --warning-color-shade--lightest: #fdf7db;
+  --warning-color-shade: #ffd15b;
+  --warning-color-shade--dark: #765400;
+  --warning-color-shade--lightest: #fefae5;
 
   --info-color-shade--lightest: #e2f6f9;
   --info-color-shade--dark: #17a2b8;
-  --aux-color-shade--lightest: #ecf5fe;
 
-  --danger-color-shade: #bc2729;
-  --danger-color-shade--light: #d97170;
-  --danger-color-shade--lighter: #fde6e2;
-  --danger-color-shade--lightest: #fffbfb;
+  --danger-color-shade: #ea4c5f;
+  --danger-color-shade--lightest: #ffeaec;
+  --danger-color-shade-dark: #be162a;
 
-  --grey-color-shade: #8e9295;
-  --grey-color-shade--light: #cccccc;
-  --grey-color-shade--lighter: #e2e4e8;
-  --grey-color-shade--lightest: #f5f5f5;
+  --grey-color-shade: #616161;
+  --grey-color-shade--light: #adadad;
+  --grey-color-shade--lighter: #e3e3e3;
+  --grey-color-shade--lightest: #efefef;
 }

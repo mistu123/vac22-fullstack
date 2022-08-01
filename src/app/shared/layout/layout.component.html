@@ -1,36 +1,76 @@
-<nav class="navbar w-100 d-flex justify-content-between font-weight-bolder text-warning px-5 py-4 bg-black">
-  <h4 class="my-auto font-weight-heavy d-inline-flex">
+<nav
+  class="navbar w-100 d-flex justify-content-between font-weight-bolder px-5 bg-black"
+  [ngClass]="config.auth ? 'py-2' : 'py-3'"
+>
+  <h4 class="my-auto font-weight-heavy d-inline-flex text-warning">
     <span class="my-auto">Expense Tracker</span>
   </h4>
   <div class="my-auto d-flex justify-content-end">
-    <a
-      *ngIf="config.show === 'login'"
-      [routerLink]="['/']"
-      [queryParams]="{ show: 'register' }"
-      class="d-inline-flex btn btn-warning my-auto font-weight-bolder me-4"
-    >
-      <span class="my-auto">Register Now</span>
-      <i class="fas fa-arrow-right my-auto ms-2"></i>
-    </a>
+    <!--if auth-->
+    <ng-container *ngIf="config.auth">
+      <div class="btn-group" dropdown>
+        <button dropdownToggle type="button" class="btn btn-dark d-inline-flex justify-content-start border-0">
+          <img
+            [src]="
+              'https://ui-avatars.com/api/?rounded=true&name=' +
+              userDetails.name +
+              '&size=28&bold=true&background=F9C10A'
+            "
+            alt="user-avatar"
+            class="my-auto"
+          />
+          <span class="my-auto mx-2 text-capitalize">
+            Hi, <b class="font-weight-heavy">{{ userDetails.name }}</b>
+          </span>
+          <i class="fa-solid fa-caret-down my-auto"></i>
+        </button>
+        <ul *dropdownMenu class="dropdown-menu shadow border-0">
+          <li class="cursor-pointer">
+            <a class="dropdown-item font-weight-bold d-inline-flex"> Account Details </a>
+          </li>
+          <li class="divider dropdown-divider"></li>
+          <li class="cursor-pointer" (click)="logout()">
+            <a class="dropdown-item text-danger font-weight-bold d-inline-flex justify-content-between">
+              <span class="my-auto">Logout</span>
+              <i class="fa-solid fa-arrow-right-from-bracket my-auto"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </ng-container>
 
-    <a
-      *ngIf="config.show === 'register'"
-      [routerLink]="['/']"
-      [queryParams]="{ show: 'login' }"
-      class="
-        btn btn-link
-        shadow-none
-        text--size-15 text-warning text-decoration-none
-        d-inline
-        font-weight-bolder
-        my-auto
-      "
-    >
-      <i class="fas fa-lock my-auto me-2"></i>
-      <span class="my-auto">Continue Login</span>
-    </a>
+    <!--if no auth-->
+    <ng-container *ngIf="!config.auth">
+      <a
+        *ngIf="config.show === 'login'"
+        [routerLink]="['/']"
+        [queryParams]="{ show: 'register' }"
+        class="d-inline-flex btn btn-warning my-auto font-weight-bolder me-4"
+      >
+        <span class="my-auto">Register Now</span>
+        <i class="fas fa-arrow-right my-auto ms-2"></i>
+      </a>
+
+      <a
+        *ngIf="config.show === 'register'"
+        [routerLink]="['/']"
+        [queryParams]="{ show: 'login' }"
+        class="
+          btn btn-link
+          shadow-none
+          text--size-15 text-warning text-decoration-none
+          d-inline
+          font-weight-bolder
+          my-auto
+        "
+      >
+        <i class="fas fa-lock my-auto me-2"></i>
+        <span class="my-auto">Continue Login</span>
+      </a>
+    </ng-container>
   </div>
 </nav>
+
 <div class="container-fluid px-0">
   <router-outlet></router-outlet>
 </div>
