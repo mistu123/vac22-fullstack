@@ -8,5 +8,14 @@ import { Component, OnInit } from '@angular/core';
 export class TransactionsComponent implements OnInit {
   constructor() {}
 
+  selectedExpense: any = { trigger: false, data: {} };
+
   ngOnInit(): void {}
+
+  expenseModal = (obj) => {
+    this.selectedExpense = { ...this.selectedExpense, trigger: true, data: {} };
+    if (obj) {
+      this.selectedExpense = { ...this.selectedExpense, data: obj };
+    }
+  };
 }

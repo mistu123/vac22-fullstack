@@ -58,22 +58,3 @@ button:focus,
 .toast-close {
   margin-left: 2.5rem;
 }
-
-/* ngx bootstrap tooltip and popover */
-.popover {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-.popover-arrow {
-  position: absolute;
-}
-.tooltip {
-  position: absolute;
-}
-.tooltip-arrow {
-  position: absolute;
-}
-.tooltip.show {
-  transform: translate3d(879px, -20px, 0px) !important;
-}

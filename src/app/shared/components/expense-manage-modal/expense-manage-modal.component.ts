@@ -9,18 +9,15 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 export class ExpenseManageModalComponent implements OnInit, OnChanges {
   constructor() {}
 
+  config: any = { isLoading: false, isEdit: false };
   @Input() selectedExpense: any = {};
   @ViewChild('expenseManageModal') private expenseManageModal: ModalDirective;
 
-  ngOnInit(): void {
-    setTimeout(() => {
-      this.expenseManageModal.show();
-    }, 100);
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(): void {
-    console.log(this.selectedExpense);
-    if (!Object.keys(this.selectedExpense).length) {
+    if (this.selectedExpense.trigger) {
+      this.config.isEdit = Object.keys(this.selectedExpense.data).length;
       this.expenseManageModal.show();
     }
   }
