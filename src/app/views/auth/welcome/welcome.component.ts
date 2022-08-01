@@ -22,7 +22,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   config: any = { show: 'register', isLoading: false };
-  formData: any = { name: 'Tamaghna Banerjee', email: 'tamaghna@findela.com', password: '123456' };
+  formData: any = { name: '', email: '', password: '' };
   validation: any = { name: false, email: false, password: false };
 
   ngOnInit(): void {
