@@ -2,13 +2,21 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ExpenseRoutingModule } from './expense-routing.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ManageComponent } from './manage/manage.component';
+import { TransactionsComponent } from './transactions/transactions.component';
+import { CategoryComponent } from './category/category.component';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { SharedComponentsModule } from '../../shared/components/shared-components.module';
 
 @NgModule({
-  declarations: [DashboardComponent, ManageComponent],
-  imports: [CommonModule, ExpenseRoutingModule, LoadingBarModule, FormsModule, TooltipModule.forRoot()],
+  declarations: [TransactionsComponent, CategoryComponent],
+  imports: [
+    CommonModule,
+    ExpenseRoutingModule,
+    LoadingBarModule,
+    FormsModule,
+    TooltipModule.forRoot(),
+    SharedComponentsModule,
+  ],
 })
 export class ExpenseModule {}

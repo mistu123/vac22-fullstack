@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ManageComponent } from './manage/manage.component';
+import { TransactionsComponent } from './transactions/transactions.component';
+import { CategoryComponent } from './category/category.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'transactions',
     pathMatch: 'full',
   },
   {
-    path: 'dashboard',
-    component: DashboardComponent,
+    path: 'transactions',
+    component: TransactionsComponent,
   },
   {
-    path: 'manage',
-    component: ManageComponent,
+    path: 'category',
+    component: CategoryComponent,
   },
 ];
 

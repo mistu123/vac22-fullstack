@@ -1,0 +1,22 @@
+<div
+  class="modal fade side-sheet-modal-xs animate__animated animate__slideInRight"
+  bsModal
+  #solutionDetailsPanelModal="bs-modal"
+  [config]="{ backdrop: true, ignoreBackdropClick: true }"
+>
+  <div class="modal-dialog position-fixed right-0 m-0 shadow-lg" style="max-width: max-content">
+    <div class="modal-content vh-100 rounded-0 border-0 overflow-auto">
+      <div class="modal-header border-0 px-4 d-block">
+        <div class="d-flex justify-content-between">
+          <h4 class="my-auto font-weight-bold text-secondary">Solution Details</h4>
+          <button type="button" class="close pull-right my-auto py-0" (click)="closeModal()">
+            <span class="text--size-30 font-weight-bolder text-dark">&times;</span>
+          </button>
+        </div>
+      </div>
+      <ng-container *ngIf="selectedSolution.environmentId">
+        <app-solution-details-panel [selectedSolution]="selectedSolution"></app-solution-details-panel>
+      </ng-container>
+    </div>
+  </div>
+</div>
