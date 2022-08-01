@@ -20,14 +20,9 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: '',
+    path: 'welcome',
     component: LayoutComponent,
-    children: [
-      {
-        path: 'welcome',
-        loadChildren: () => AuthModule,
-      },
-    ],
+    loadChildren: () => AuthModule,
   },
   {
     path: '',

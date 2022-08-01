@@ -12,11 +12,13 @@
             <h3 class="font-weight-heavy mb-3">
               {{ config.show === 'register' ? 'Register Now' : 'Login to App' }}
             </h3>
+
             <div class="mb-3" *ngIf="config.show === 'register'">
               <label class="form-label">Your Name</label>
               <input [(ngModel)]="formData.name" type="text" class="form-control" />
               <div class="form-text text-danger font-weight-bold" *ngIf="validation.name">A valid name is required</div>
             </div>
+
             <div class="mb-3">
               <label class="form-label">Email address</label>
               <input
