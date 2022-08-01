@@ -1,33 +1,12 @@
 /*overriding bootstrap default style rules*/
 
-/*table override*/
-.table.header-without-border tbody tr:first-child td,
-.table.header-without-border tbody tr th:first-child {
-  border-top: 0;
-}
-
 /*accordion related*/
 .panel-heading.card-header {
   padding: 0;
   border: 0;
 }
-
-/*.panel.card {*/
-/*margin-top: 25px;*/
-/*margin-bottom: 25px;*/
-/*}*/
-
 .panel .card-body {
   padding: 0;
-}
-
-/*modal related*/
-
-.modal-backdrop {
-  background: var(--primary-color-shade--darker);
-}
-.modal-dialog {
-  pointer-events: auto;
 }
 
 /*input type option*/
@@ -78,4 +57,23 @@ button:focus,
 }
 .toast-close {
   margin-left: 2.5rem;
+}
+
+/* ngx bootstrap tooltip and popover */
+.popover {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.popover-arrow {
+  position: absolute;
+}
+.tooltip {
+  position: absolute;
+}
+.tooltip-arrow {
+  position: absolute;
+}
+.tooltip.show {
+  transform: translate3d(879px, -20px, 0px) !important;
 }

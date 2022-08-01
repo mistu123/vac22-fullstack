@@ -1,1 +1,35 @@
-<p>dashboard works!</p>
+<div class="bg-black w-100 d-block py-4" style="height: calc(100vh - 400px)">
+  <div class="responsive-layout py-4">
+    <div class="d-flex justify-content-between">
+      <h3 class="text-white font-weight-bolder my-auto">All Transactions</h3>
+      <button class="btn btn-warning font-weight-bolder d-inline-flex">
+        <i class="fas fa-plus my-auto me-2"></i>
+        <span class="my-auto">New Transaction</span>
+      </button>
+    </div>
+
+    <ng-container *ngFor="let item of [].constructor(2); let i = index">
+      <div class="card my-3 border-0 shadow rounded-50">
+        <div class="card-body p-5">
+          <h6 class="mb-3 font-weight-bolder">2 days ago</h6>
+          <div class="card border-light border mt-3" *ngFor="let item of [].constructor(5); let j = index">
+            <div class="card-body">
+              <section class="d-flex justify-content-between px-3">
+                <h6 class="my-auto">This is some text within a card body.</h6>
+                <span class="my-auto">
+                  <i
+                    *ngIf="j % 2 === 0"
+                    class="fa-solid fa-paperclip my-auto mx-4 text-warning-dark cursor-pointer"
+                    [tooltip]="'View Attachments'"
+                  ></i>
+                  <i class="fas fa-edit text-secondary my-auto me-3"></i>
+                  <i class="fas fa-trash-alt text-danger my-auto"></i>
+                </span>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
