@@ -21,18 +21,20 @@ export class AuthService {
    */
   checkAuth(): boolean {
     // Get token from localstorage
-    const token = localStorage.getItem('user_auth');
+    const token = localStorage.getItem('auth_session');
     // Check to see if token exists, if not return false
     if (!token) {
+      this.authenticated = false;
       return false;
     }
 
     // Decode token and get expiration date
     const decoded = jwt_decode(token);
     const date = decoded['exp'];
+    this.authenticated = date > Date.now() / 1000;
 
     // check if expiration is less than current time, if so return true
-    return date > Date.now() / 1000;
+    return this.authenticated;
   }
 
   /**
@@ -40,11 +42,11 @@ export class AuthService {
    */
   getToken = () => {
     if (this.checkStorageData()) {
-      const token = jwt_decode(localStorage.getItem('user_auth'));
+      const token = jwt_decode(localStorage.getItem('auth_session'));
       if (token && Object.keys(token).length && token['exp'] < Date.now() / 1000) {
         this.signOut();
       }
-      return localStorage.getItem('user_auth');
+      return localStorage.getItem('auth_session');
     }
     return false;
   };
@@ -53,21 +55,20 @@ export class AuthService {
    * Promise Return authToken set in localstorage
    */
   async setToken(token): Promise<any> {
-    return await localStorage.setItem('user_auth', token);
+    return await localStorage.setItem('auth_session', token);
   }
 
   /**
-   * Promise Return check storage item (user_auth)
+   * Promise Return check storage item (auth_session)
    */
   checkStorageData() {
-    return !!localStorage.getItem('user_auth');
+    return !!localStorage.getItem('auth_session');
   }
 
   /**
    * Signing out user by destroying session cookie
    */
   signOut = () => {
-    this.authenticated = false;
     localStorage.clear();
     // this.util.handleSuccess('You have successfully logged out!');
     this.router.navigate(['/']);
@@ -77,8 +78,8 @@ export class AuthService {
    * Return formatted current user object stored in cookie
    */
   async getUserDetails(): Promise<any> {
-    if (localStorage.getItem('user_auth')) {
-      const token = localStorage.getItem('user_auth');
+    if (localStorage.getItem('auth_session')) {
+      const token = localStorage.getItem('auth_session');
       this.userDetails = jwt_decode(token);
       this.userDetails = {
         ...this.userDetails,

@@ -25,7 +25,9 @@ export class LayoutComponent implements OnInit {
       if (params && params.show) {
         this.config = params;
       }
-      this.getUserDetails();
+      if (this.auth.authenticated) {
+        this.getUserDetails();
+      }
     });
   }
 

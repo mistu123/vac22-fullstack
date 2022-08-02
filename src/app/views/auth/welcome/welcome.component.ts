@@ -22,7 +22,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   config: any = { show: 'register', isLoading: false };
-  formData: any = { name: '', email: '', password: '' };
+  formData: any = { name: '', email: 'tamaghna@findela.com', password: '123456' };
   validation: any = { name: false, email: false, password: false };
 
   ngOnInit(): void {
@@ -66,7 +66,7 @@ export class WelcomeComponent implements OnInit {
       if (response && response.flag && response.accessToken) {
         this.auth.setToken(response.accessToken).then(() => {
           this.router.navigate(['/expense']);
-          location.reload();
+          // location.reload();
         });
       }
     });
