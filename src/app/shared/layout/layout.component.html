@@ -2,9 +2,31 @@
   class="navbar w-100 d-flex justify-content-between font-weight-bolder px-5 bg-black"
   [ngClass]="config.auth ? 'py-2' : 'py-3'"
 >
-  <h5 class="my-auto font-weight-heavy d-inline-flex text-warning">
-    <span class="my-auto">Expense Tracker</span>
-  </h5>
+  <div class="d-flex justify-content-start">
+    <h5 class="my-auto font-weight-heavy d-inline-flex text-warning">
+      <span class="my-auto">Expense Tracker</span>
+    </h5>
+    <ng-container *ngIf="config.auth">
+      <a
+        [routerLink]="'/dashboard'"
+        class="my-auto btn btn-link ms-4 ps-4 text-white bg-black text-decoration-none d-inline font-weight-bold"
+      >
+        <i class="fa-solid fa-chart-simple my-auto me-2 text-danger"></i>
+        <span class="my-auto">Dashboard</span>
+      </a>
+      <a
+        [routerLink]="'/expense'"
+        class="my-auto btn btn-link text-white bg-black text-decoration-none font-weight-bold"
+        >Transactions</a
+      >
+      <a
+        [routerLink]="'/expense/category'"
+        class="my-auto btn btn-link text-white bg-black text-decoration-none font-weight-bold"
+        >Categories</a
+      >
+    </ng-container>
+  </div>
+
   <div class="my-auto d-flex justify-content-end">
     <!--if auth-->
     <ng-container *ngIf="config.auth">
@@ -20,7 +42,7 @@
             class="my-auto"
           />
           <span class="my-auto mx-2 text-capitalize">
-            Hi, <b class="font-weight-heavy">{{ userDetails.name }}</b>
+            Hi, <b class="font-weight-heavy">{{ userDetails.name && userDetails.name.split(' ')[0] }}</b>
           </span>
           <i class="fa-solid fa-caret-down my-auto"></i>
         </button>

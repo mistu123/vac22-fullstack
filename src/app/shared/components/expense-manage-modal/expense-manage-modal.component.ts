@@ -7,11 +7,11 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
   styleUrls: ['./expense-manage-modal.component.css'],
 })
 export class ExpenseManageModalComponent implements OnInit, OnChanges {
-  constructor() {}
-
-  config: any = { isLoading: false, isEdit: false };
+  config: any = { isLoading: false, isEdit: false, bsInlineValue: new Date() };
   @Input() selectedExpense: any = {};
   @ViewChild('expenseManageModal') private expenseManageModal: ModalDirective;
+
+  constructor() {}
 
   ngOnInit(): void {}
 

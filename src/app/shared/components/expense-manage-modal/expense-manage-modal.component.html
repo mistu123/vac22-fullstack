@@ -1,22 +1,93 @@
 <div
-  class="modal fade side-sheet-modal-sm animate__animated animate__slideInRight"
+  class="modal fade side-sheet-modal-xs animate__animated animate__slideInRight"
   bsModal
   #expenseManageModal="bs-modal"
   [config]="{ backdrop: true, ignoreBackdropClick: true }"
 >
   <div class="modal-dialog position-fixed right-0 m-0 shadow-lg" style="max-width: max-content">
     <div class="modal-content vh-100 rounded-0 border-0 overflow-auto">
-      <div class="modal-header border-0 px-4 d-block">
-        <div class="d-flex justify-content-between">
-          <h4 class="my-auto font-weight-bold text-secondary">{{ config.isEdit ? 'Edit' : 'New' }} Expense</h4>
-          <button
-            type="button"
-            class="close btn pull-right btn-white border-0 shadow-none my-auto py-0"
-            (click)="closeModal()"
-          >
-            <span class="text--size-30 font-weight-bolder text-dark">&times;</span>
-          </button>
-        </div>
+      <div class="modal-header border-0 px-4 d-flex justify-content-between">
+        <h4 class="my-auto font-weight-heavy">{{ config.isEdit ? 'Edit' : 'New' }} Expense</h4>
+        <button
+          type="button"
+          class="close btn pull-right btn-white border-0 shadow-none my-auto p-0"
+          (click)="closeModal()"
+        >
+          <span class="text--size-25 font-weight-bolder text-secondary">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body px-4 pt-0">
+        <section>
+          <div class="mb-3">
+            <label class="form-label">Category</label>
+            <div class="btn-group d-block" dropdown>
+              <button
+                dropdownToggle
+                type="button"
+                class="btn shadow-none btn-outline-dark font-weight-bold dropdown-toggle"
+                aria-controls="dropdown-basic"
+              >
+                Select From List <span class="caret"></span>
+              </button>
+              <ul *dropdownMenu class="dropdown-menu shadow border-0">
+                <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+                <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+                <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+                <li class="divider dropdown-divider"></li>
+                <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Amount</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Select Date</label>
+            <div class="d-block">
+              <bs-datepicker-inline
+                [bsConfig]="{ containerClass: 'theme-orange' }"
+                [bsValue]="config.bsInlineValue"
+              ></bs-datepicker-inline>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label d-block">Upload File(s)</label>
+            <label
+              class="
+                btn
+                text-center
+                btn-file-upload
+                shadow-none
+                rounded
+                my-auto
+                cursor-pointer
+                font-weight-bold
+                btn-dark
+              "
+            >
+              <input type="file" [multiple]="true" accept="*" class="overflow-hidden border-0 position-absolute p-0" />
+              <ng-container> <i class="far fa-folder-open me-2"></i>Browse File </ng-container>
+            </label>
+          </div>
+
+          <div class="mt-4 mb-3 ps-0 form-check">
+            <span class="switch switch-success switch-sm">
+              <label></label>
+              <input [id]="'status'" type="checkbox" class="switch" [checked]="true" />
+              <label [htmlFor]="'status'" class="text--size-15 font-weight-bold">Status</label>
+            </span>
+          </div>
+
+          <button type="submit" class="btn btn-warning mt-4 w-100 font-weight-bold">Save Changes</button>
+        </section>
       </div>
     </div>
   </div>

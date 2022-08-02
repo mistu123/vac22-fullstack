@@ -58,3 +58,29 @@ button:focus,
 .toast-close {
   margin-left: 2.5rem;
 }
+
+/*ngx bootstrap override*/
+.bs-datepicker {
+  box-shadow: none !important;
+}
+.bs-datepicker-container {
+  padding: 0 !important;
+}
+.bs-datepicker-head,
+.bs-datepicker-body table td span.selected,
+.bs-datepicker-body table td.selected span,
+.bs-datepicker-body table td span[class*='select-']:after,
+.bs-datepicker-body table td[class*='select-'] span:after {
+  background-color: #f9c10a !important;
+}
+.bs-datepicker-head button,
+.bs-datepicker-body table td span.selected,
+.bs-datepicker-body table td,
+.bs-datepicker-body table td.selected span {
+  color: #000 !important;
+  font-weight: bold !important;
+}
+.bs-datepicker-body table td.week span {
+  color: #c79a08 !important;
+  font-weight: bolder !important;
+}

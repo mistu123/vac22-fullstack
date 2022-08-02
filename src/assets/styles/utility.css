@@ -258,7 +258,7 @@ b,
   width: calc(100vw - 780px);
 }
 .side-sheet-modal-xs .modal-content {
-  width: calc(100vw - 950px);
+  width: calc(100vw - 945px);
 }
 
 @media only screen and (min-width: 1620px) {
@@ -276,7 +276,7 @@ b,
     width: calc(100vw - 1240px);
   }
   .side-sheet-modal-xs .modal-content {
-    width: calc(100vw - 1420px);
+    width: calc(100vw - 1595px);
   }
 }
 
