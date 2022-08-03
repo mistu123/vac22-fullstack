@@ -17,13 +17,6 @@
               <ng-container *ngFor="let item of [].constructor(5); let j = index">
                 <div class="card border rounded-0 mt-1">
                   <div class="card-body">
-                    <span
-                      *ngIf="j % 2 === 0"
-                      style="top: -4px"
-                      class="text-theme-primary position-absolute text--size-18 left-0"
-                    >
-                      <i class="fa-solid fa-paperclip"></i>
-                    </span>
                     <section class="d-flex justify-content-between px-3">
                       <div class="my-auto d-flex justify-content-start">
                         <i
@@ -35,6 +28,7 @@
                         <h6 class="my-auto">Dummy Sample Expense Description {{ j * (i + 1) + 1 }}</h6>
                       </div>
                       <div class="d-flex justify-content-end my-auto">
+                        <i *ngIf="j % 2 === 0" class="fa-solid fa-paperclip text-theme-primary my-auto me-2"></i>
                         <b class="font-weight-heavy me-3">
                           <!--[ngClass]="j % 2 === 0 ? 'text-danger' : 'text-success'"-->
                           ₹200.00</b
