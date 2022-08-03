@@ -7,7 +7,7 @@ export const environment = {
   environmentName: 'production',
   googleOAuthKey: '',
   googleRecaptchaKey: '',
-  apiUrl: '',
+  apiUrl: 'http://api.allhands.life',
   apiKey: '',
   baseUrlHost: '',
 };
