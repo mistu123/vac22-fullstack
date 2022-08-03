@@ -40,29 +40,30 @@ class Transaction {
 
     // fetch transaction(s) list
     fetchTransactionList(obj) {
-        let sql = `SELECT * FROM expense_transaction WHERE status = '${1}' AND user_id = '${obj.userId}'` ;
+        let sql = `SELECT exc.description, exc.type, ext.* FROM expense_transaction as ext LEFT JOIN expense_category`+
+            ` as exc ON ext.category_id = exc.id WHERE ext.status = '${1}' AND ext.user_id = '${obj.userId}'` ;
         let conditionalCount = 0;
 
         if (obj.id) {
             conditionalCount += 1;
-            sql = sql + (conditionalCount > 0 && ` AND`) + ` id = '${obj.id}'`;
+            sql = sql + (conditionalCount > 0 && ` AND`) + ` ext.id = '${obj.id}'`;
         }
         else {
             if (obj.startDate && obj.endDate) {
                 conditionalCount += 1;
-                sql = sql + (conditionalCount > 0 && ` AND`) + ` date BETWEEN '${obj.startDate}' AND '${obj.endDate}'`
+                sql = sql + (conditionalCount > 0 && ` AND`) + ` ext.date BETWEEN '${obj.startDate}' AND '${obj.endDate}'`
             }
             if (obj.amount) {
                 conditionalCount += 1;
-                sql = sql + (conditionalCount > 0 && ` AND`) + ` amount = '${obj.amount}'`;
+                sql = sql + (conditionalCount > 0 && ` AND`) + ` ext.amount = '${obj.amount}'`;
             }
             if (obj.category_id) {
                 conditionalCount += 1;
-                sql = sql + (conditionalCount > 0 && ` AND`) + ` category_id = '${obj.category_id}'`
+                sql = sql + (conditionalCount > 0 && ` AND`) + ` ext.category_id = '${obj.category_id}'`
             }
             if (obj.transaction_id) {
                 conditionalCount += 1;
-                sql = sql + (conditionalCount > 0 && ` AND`) + ` transaction_id = '${obj.transaction_id}'`
+                sql = sql + (conditionalCount > 0 && ` AND`) + ` ext.transaction_id = '${obj.transaction_id}'`
             }
         }
         return sql;
