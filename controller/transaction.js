@@ -42,7 +42,8 @@ router.post("/manage", async (req, res, next) => {
                             if (result.affectedRows || result.insertId) {
                                 res.status(200).json({
                                     message: 'Transaction ' + (obj.id ? 'updated' : 'created') + ' successfully',
-                                    status: 200
+                                    status: 200,
+                                    result
                                 });
                             } else {
                                 res.status(404).json({
