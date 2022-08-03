@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TransactionService } from '../../../shared/services/transaction/transaction.service';
 
 @Component({
   selector: 'app-expense-transactions',
@@ -6,16 +7,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./transactions.component.css'],
 })
 export class TransactionsComponent implements OnInit {
-  constructor() {}
+  constructor(private transaction: TransactionService) {}
 
+  transactionList: any = [];
   selectedExpense: any = { trigger: false, data: {} };
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.fetchTransactionList();
+  }
 
   expenseModal = (obj) => {
     this.selectedExpense = { ...this.selectedExpense, trigger: true, data: {} };
     if (obj) {
       this.selectedExpense = { ...this.selectedExpense, data: obj };
     }
+  };
+
+  // fetch all transactions
+  fetchTransactionList = () => {
+    this.transaction.fetchTransactionList({}).then((response) => {
+      if (response.flag && response.result.length) {
+        this.transactionList = response.result;
+      }
+    });
   };
 }
