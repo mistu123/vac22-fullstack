@@ -52,8 +52,8 @@
           <i class="fa-solid fa-caret-down my-auto"></i>
         </button>
         <ul *dropdownMenu class="dropdown-menu shadow border-0" style="min-width: 200px">
-          <li class="cursor-pointer">
-            <a class="dropdown-item font-weight-bold d-inline-flex"> Account Details </a>
+          <li class="cursor-pointer" (click)="userProfileDetails.show()">
+            <a class="dropdown-item font-weight-bold d-inline-flex cursor-pointer"> Account Details </a>
           </li>
           <li class="divider dropdown-divider"></li>
           <li class="cursor-pointer" (click)="logout()">
@@ -97,6 +97,58 @@
     </ng-container>
   </div>
 </nav>
+
+<!--account profile in modal-->
+<div
+  class="modal fade animate__animated animate__fadeIn mt-5"
+  bsModal
+  #userProfileDetails="bs-modal"
+  [config]="{ backdrop: true, ignoreBackdropClick: false }"
+>
+  <div class="modal-dialog shadow-lg modal-sm">
+    <div class="modal-content px-2 rounded-0 border-0">
+      <div class="modal-header border-0 d-flex justify-content-between">
+        <h5 class="my-auto font-weight-bolder">Account Details</h5>
+        <button
+          type="button"
+          class="close btn pull-right my-auto btn-white border-0"
+          (click)="userProfileDetails.hide()"
+        >
+          <span class="text--size-25 text-secondary">&times;</span>
+        </button>
+      </div>
+      <div class="card border-0">
+        <div class="card-body px-0 pt-0">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item border-0 font-weight-bold py-1">
+              <small class="text-secondary d-block">Your Name</small>
+              {{ userDetails.name }}
+            </li>
+            <li class="list-group-item border-0 font-weight-bold py-1">
+              <small class="text-secondary d-block">Registered Email</small>
+              {{ userDetails.email || '-------' }}
+            </li>
+            <li class="list-group-item border-0 font-weight-bold py-1 text-capitalize">
+              <small class="text-secondary d-block">Session Expires</small>
+              <span class="text-danger">
+                {{
+                  userDetails.exp
+                    ? moment(userDetails.exp * 1000)
+                        .endOf('hour')
+                        .fromNow()
+                    : '-------'
+                }}
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer border-0 bg-white">
+      <button (click)="logout()" class="btn btn-danger font-weight-bolder w-100" [disabled]="false">Logout</button>
+    </div>
+  </div>
+</div>
 
 <div class="container-fluid px-0">
   <router-outlet></router-outlet>

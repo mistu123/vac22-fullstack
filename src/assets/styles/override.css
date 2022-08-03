@@ -9,6 +9,14 @@
   padding: 0;
 }
 
+/*modal related*/
+.modal-backdrop {
+  background: var(--warning-color-shade--dark);
+}
+.modal-dialog {
+  pointer-events: auto;
+}
+
 /*input type option*/
 input[type='text'],
 input[type='password'],

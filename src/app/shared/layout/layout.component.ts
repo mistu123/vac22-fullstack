@@ -12,6 +12,7 @@ import * as moment from 'moment';
 export class LayoutComponent implements OnInit {
   config: any = { show: 'register', auth: false };
   userDetails: any = {};
+  moment: any = moment;
 
   constructor(
     private router: Router,
