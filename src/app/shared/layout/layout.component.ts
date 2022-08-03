@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UtilService } from '../services/util/util.service';
 import { AuthService } from '../services/auth/auth.service';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
   selector: 'app-blank-layout',
