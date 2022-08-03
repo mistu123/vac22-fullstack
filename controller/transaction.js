@@ -14,7 +14,6 @@ router.post("/manage", async (req, res, next) => {
         amount: req.body.amount,
         description: req.body.description,
         categoryId: req.body.categoryId,
-        type: req.body.type,
         date: req.body.date,
         attachment: req.body.attachment,
         status: req.body.status || 1,
@@ -24,7 +23,7 @@ router.post("/manage", async (req, res, next) => {
         obj.transactionId = util.generateRandomString(10);
     }
     // validate request
-    if(!util.validateRequest(obj, ['amount', 'date', 'userId', 'type', 'categoryId'])) {
+    if(!util.validateRequest(obj, ['amount', 'date', 'userId', 'categoryId'])) {
         res.status(400).json({
             message: "Validation Failed. One or more required parameters are missing",
             status: 400
@@ -158,7 +157,7 @@ router.post("/list", async (req, res, next) => {
                     });
                 }
             } else {
-                
+
                 res.status(500).json({
                     message: 'Something went wrong in db query of filter transaction!',
                     status: 500

@@ -6,13 +6,13 @@ class Category {
         let sql = '';
         // if category id exists
         if (obj.id) {
-            sql = `UPDATE expense_category set name ='${obj.name}', description ='${obj.description}', status ='${obj.status}' `+
-                `where user_id = '${obj.userId}' AND id = '${obj.id}'`;
+            sql = `UPDATE expense_category set name ='${obj.name}', description ='${obj.description}', type ='${obj.type}',`+
+                `status ='${obj.status}' where user_id = '${obj.userId}' AND id = '${obj.id}'`;
         }
         // if new category / no category id
         else {
-            sql = `INSERT INTO expense_category (name, description, user_id, status) VALUES (`+
-                `'${obj.name}', '${obj.description}', '${obj.userId}', '${obj.status}');`;
+            sql = `INSERT INTO expense_category (name, description, type, user_id, status) VALUES (`+
+                `'${obj.name}', '${obj.description}', '${obj.type}', '${obj.userId}', '${obj.status}');`;
         }
         return sql;
     }

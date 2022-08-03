@@ -11,12 +11,13 @@ router.post("/manage", async (req, res, next) => {
     let obj = {
         id: req.body.id,
         name: req.body.name,
+        type: req.body.type,
         description: req.body.description,
         status: req.body.status || 1,
         userId: util.verifyToken(req,res).userId  // get userid from authorization header
     };
     // validate request
-    if(!util.validateRequest(obj, ['name', 'description', 'userId'])) {
+    if(!util.validateRequest(obj, ['name', 'description', 'userId', 'type'])) {
         res.status(400).json({
             message: "Validation Failed. One or more required parameters are missing",
             status: 400

@@ -18,16 +18,15 @@ class Transaction {
         let sql = '';
         // if transaction id exists
         if (obj.id) {
-            sql = `UPDATE expense_transaction set amount ='${obj.amount}', description ='${obj.categoryId}',` +
-                `type ='${obj.type}',date ='${obj.date}',status ='${obj.status}',`+
+            sql = `UPDATE expense_transaction set amount ='${obj.amount}', category_id ='${obj.categoryId}', `+
+                `description ='${obj.description}', date ='${obj.date}',status ='${obj.status}',`+
                 `updated_on ='${moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')}',` +
-                `attachment = '${obj.attachment}' `+
-                `where user_id = '${obj.userId}' AND id = '${obj.id}'`;
+                `attachment = '${obj.attachment}' where user_id = '${obj.userId}' AND id = '${obj.id}'`;
         }
         else {
-            sql = `INSERT INTO expense_transaction (amount, description, category_id, user_id, type, date,`+
+            sql = `INSERT INTO expense_transaction (amount, description, category_id, user_id, date,`+
                 ` status, attachment, transaction_id) VALUES (`+
-                `'${obj.amount}', '${obj.description || ''}', '${obj.categoryId}', '${obj.userId}', '${obj.type}',`+
+                `'${obj.amount}', '${obj.description || ''}', '${obj.categoryId}', '${obj.userId}',`+
                 `'${obj.date}','${obj.status}', '${obj.attachment || ''}', '${obj.transactionId}')`;
         }
         return sql;
@@ -43,17 +42,12 @@ class Transaction {
     fetchTransactionList(obj) {
         let sql = `SELECT * FROM expense_transaction WHERE status = '${1}' AND user_id = '${obj.userId}'` ;
         let conditionalCount = 0;
-        
+
         if (obj.id) {
             conditionalCount += 1;
             sql = sql + (conditionalCount > 0 && ` AND`) + ` id = '${obj.id}'`;
         }
         else {
-            if (obj.type) {
-                
-                conditionalCount += 1;
-                sql = sql + (conditionalCount > 0 && ` AND`) + ` type = '${obj.type}'`
-            }
             if (obj.startDate && obj.endDate) {
                 conditionalCount += 1;
                 sql = sql + (conditionalCount > 0 && ` AND`) + ` date BETWEEN '${obj.startDate}' AND '${obj.endDate}'`
