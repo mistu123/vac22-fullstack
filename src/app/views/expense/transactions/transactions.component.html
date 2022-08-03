@@ -11,10 +11,11 @@
         </div>
 
         <ng-container *ngFor="let item of [].constructor(2); let i = index">
-          <div class="card my-3 border-0 shadow rounded-50">
+          <div class="card my-3 border shadow rounded-50">
             <div class="card-body py-4 px-5">
-              <h6 class="mb-3 font-weight-heavy text-black-50 d-inline">
-                2 days ago <small class="fas fa-info-circle my-auto"></small>
+              <h6 class="font-weight-heavy text-black-50 d-inline-flex mb-2">
+                2 days ago
+                <small class="fas fa-info-circle my-auto ms-1" [tooltip]="'2 days ago'" [placement]="'right'"></small>
               </h6>
               <ng-container *ngFor="let item of [].constructor(5); let j = index">
                 <div class="card border rounded-0 mt-1">

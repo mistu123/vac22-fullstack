@@ -28,37 +28,45 @@
                 class="btn shadow-none btn-outline-dark font-weight-bold dropdown-toggle btn-sm"
                 aria-controls="dropdown-basic"
               >
-                Select From List <span class="caret"></span>
+                {{ categoryDetails.type || 'Select From List' }} <span class="caret"></span>
               </button>
               <ul *dropdownMenu class="dropdown-menu shadow border-0">
-                <li class="cursor-pointer">
-                  <a class="dropdown-item">CREDIT</a>
+                <li class="cursor-pointer" (click)="categoryDetails.type = 'CREDIT'">
+                  <a class="dropdown-item font-weight-bold">CREDIT</a>
                 </li>
-                <li class="cursor-pointer">
-                  <a class="dropdown-item">DEBIT</a>
+                <li class="cursor-pointer" (click)="categoryDetails.type = 'DEBIT'">
+                  <a class="dropdown-item font-weight-bold">DEBIT</a>
                 </li>
               </ul>
             </div>
           </div>
           <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Name</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" />
+            <label class="form-label">Name</label>
+            <input [(ngModel)]="categoryDetails.name" type="text" class="form-control" />
           </div>
 
           <div class="mb-3">
             <label class="form-label">Description</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea [(ngModel)]="categoryDetails.description" class="form-control" rows="2"></textarea>
           </div>
 
           <div class="mt-4 mb-3 ps-0 form-check">
-            <span class="switch switch-success switch-sm">
+            <span class="switch switch-success switch-xs">
               <label></label>
-              <input [id]="'status'" type="checkbox" class="switch" [checked]="true" />
-              <label [htmlFor]="'status'" class="text--size-15 font-weight-bold">Status</label>
+              <input
+                [id]="'status-category'"
+                type="checkbox"
+                class="switch"
+                [(ngModel)]="categoryDetails.status"
+                [checked]="true"
+              />
+              <label [htmlFor]="'status-category'" class="text--size-15 font-weight-bold">Status</label>
             </span>
           </div>
 
-          <button type="submit" class="btn btn-warning mt-4 w-100 font-weight-bold">Save Changes</button>
+          <button (click)="manageCategory()" type="button" class="btn btn-warning mt-4 w-100 font-weight-bold">
+            Save Changes
+          </button>
         </section>
       </div>
     </div>

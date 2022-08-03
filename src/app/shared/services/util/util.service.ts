@@ -103,4 +103,13 @@ export class UtilService {
       onClick(): any {},
     }).showToast();
   }
+
+  /**
+   * Sort Array Data in descending by key
+   */
+  public sortArrayByKey(dataArray, key): any {
+    return dataArray.sort(function (a, b) {
+      return a[key] < b[key] ? 1 : a[key] > b[key] ? -1 : 0;
+    });
+  }
 }
