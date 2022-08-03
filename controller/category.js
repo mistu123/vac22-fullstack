@@ -53,6 +53,7 @@ router.post("/list", async (req, res, next) => {
     let category = new Category();
     let obj = {
         id: req.body.id,
+        status: req.body.status,
         userId: util.verifyToken(req,res).userId  // get userid from authorization header
     };
     // validate request

@@ -19,10 +19,13 @@ class Category {
 
     // fetch category list all / by specific id
     fetchCategoryList(obj) {
-        let sql = `SELECT * FROM expense_category WHERE user_id = '${obj.userId}' AND status = '${1}'`;
+        let sql = `SELECT * FROM expense_category WHERE user_id = '${obj.userId}'`;
         // if category id exits
         if (obj.id) {
             sql = sql + ` AND id = '${obj.id}'`;
+        }
+        if (obj.status === 0 || obj.status) {
+            sql = sql + ` AND status = '${obj.status}'`;
         }
         return sql;
     }
