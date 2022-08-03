@@ -7,16 +7,22 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
   styleUrls: ['./category-manage-modal.component.css'],
 })
 export class CategoryManageModalComponent implements OnInit, OnChanges {
-  constructor() {}
+  config: any = { isLoading: false, isEdit: false };
+  @Input() selectedCategory: any = {};
+  @ViewChild('categoryManageModal') private categoryManageModal: ModalDirective;
 
-  @Input() selectedSolution: any = { selectedItem: { solutionId: '' }, environmentId: '' };
-  @ViewChild('DetailsPanelModal') private solutionDetailsPanelModal: ModalDirective;
+  constructor() {}
 
   ngOnInit(): void {}
 
-  ngOnChanges(): void {}
+  ngOnChanges(): void {
+    if (this.selectedCategory.trigger) {
+      this.config.isEdit = Object.keys(this.selectedCategory.data).length;
+      this.categoryManageModal.show();
+    }
+  }
 
   closeModal = () => {
-    this.solutionDetailsPanelModal.hide();
+    this.categoryManageModal.hide();
   };
 }

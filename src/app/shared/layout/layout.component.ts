@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { UtilService } from '../services/util/util.service';
 import { AuthService } from '../services/auth/auth.service';
 import * as moment from 'moment';
@@ -10,15 +10,15 @@ import * as moment from 'moment';
   styleUrls: ['./layout.component.css'],
 })
 export class LayoutComponent implements OnInit {
+  config: any = { show: 'register', auth: false };
+  userDetails: any = {};
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private util: UtilService,
     private auth: AuthService
   ) {}
-
-  config: any = { show: 'register', auth: false };
-  userDetails: any = {};
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {

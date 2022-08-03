@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { environment } from '../environments/environment';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -22,8 +23,8 @@ import { TokenInterceptor } from './shared/services/auth/token.interceptor';
     AppRoutingModule,
     LoadingBarModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
-      // enabled: environment.production
-      enabled: false,
+      enabled: environment.production,
+      // enabled: false,
     }),
   ],
   providers: [

@@ -6,7 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./category.component.css'],
 })
 export class CategoryComponent implements OnInit {
+  selectedCategory: any = { trigger: false, data: {} };
+
   constructor() {}
 
   ngOnInit(): void {}
+
+  categoryModal = (obj) => {
+    this.selectedCategory = { ...this.selectedCategory, trigger: true, data: {} };
+    if (obj) {
+      this.selectedCategory = { ...this.selectedCategory, data: obj };
+    }
+  };
 }

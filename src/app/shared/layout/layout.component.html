@@ -9,21 +9,26 @@
     <ng-container *ngIf="config.auth">
       <a
         [routerLink]="'/dashboard'"
-        class="my-auto btn btn-link ms-4 ps-4 text-white bg-black text-decoration-none d-inline font-weight-bold"
+        [routerLinkActive]="'font-weight-heavy'"
+        class="my-auto btn btn-link ms-4 ps-4 text-white bg-black text-decoration-none d-inline"
       >
         <i class="fa-solid fa-chart-simple my-auto me-2 text-danger"></i>
         <span class="my-auto">Dashboard</span>
       </a>
       <a
-        [routerLink]="'/expense'"
-        class="my-auto btn btn-link text-white bg-black text-decoration-none font-weight-bold"
-        >Transactions</a
+        [routerLink]="'/expense/transactions'"
+        [routerLinkActive]="'font-weight-heavy'"
+        class="my-auto btn btn-link text-white bg-black text-decoration-none"
       >
+        Transactions
+      </a>
       <a
         [routerLink]="'/expense/category'"
-        class="my-auto btn btn-link text-white bg-black text-decoration-none font-weight-bold"
-        >Categories</a
+        [routerLinkActive]="'font-weight-heavy'"
+        class="my-auto btn btn-link text-white bg-black text-decoration-none"
       >
+        Categories
+      </a>
     </ng-container>
   </div>
 
