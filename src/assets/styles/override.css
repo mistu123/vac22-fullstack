@@ -16,6 +16,9 @@
 .modal-dialog {
   pointer-events: auto;
 }
+.modal-backdrop.show {
+  opacity: 0.25;
+}
 
 /*input type option*/
 input[type='text'],
@@ -89,6 +92,6 @@ button:focus,
   font-weight: bold !important;
 }
 .bs-datepicker-body table td.week span {
-  color: var(--warning-color-shade) !important;
+  color: var(--warning-color-shade--dark) !important;
   font-weight: bolder !important;
 }

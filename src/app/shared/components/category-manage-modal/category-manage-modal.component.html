@@ -16,6 +16,50 @@
           <span class="text--size-25 font-weight-bolder text-secondary">&times;</span>
         </button>
       </div>
+
+      <div class="modal-body px-4 pt-0">
+        <section>
+          <div class="mb-3">
+            <label class="form-label">Category Type</label>
+            <div class="btn-group d-block" dropdown>
+              <button
+                dropdownToggle
+                type="button"
+                class="btn shadow-none btn-outline-dark font-weight-bold dropdown-toggle"
+                aria-controls="dropdown-basic"
+              >
+                Select From List <span class="caret"></span>
+              </button>
+              <ul *dropdownMenu class="dropdown-menu shadow border-0">
+                <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+                <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+                <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+                <li class="divider dropdown-divider"></li>
+                <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Name</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+
+          <div class="mt-4 mb-3 ps-0 form-check">
+            <span class="switch switch-success switch-sm">
+              <label></label>
+              <input [id]="'status'" type="checkbox" class="switch" [checked]="true" />
+              <label [htmlFor]="'status'" class="text--size-15 font-weight-bold">Status</label>
+            </span>
+          </div>
+
+          <button type="submit" class="btn btn-warning mt-4 w-100 font-weight-bold">Save Changes</button>
+        </section>
+      </div>
     </div>
   </div>
 </div>

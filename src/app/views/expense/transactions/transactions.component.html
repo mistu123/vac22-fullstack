@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-9 mx-auto">
         <div class="d-flex justify-content-between">
-          <h3 class="text-white font-weight-bolder my-auto">All Transactions</h3>
+          <h3 class="text-white font-weight-bolder my-auto">Transactions</h3>
           <button class="btn btn-warning font-weight-bolder d-inline-flex" (click)="expenseModal('')">
             <i class="fas fa-plus my-auto me-2"></i>
             <span class="my-auto">Transaction</span>
@@ -13,23 +13,13 @@
         <ng-container *ngFor="let item of [].constructor(2); let i = index">
           <div class="card my-3 border-0 shadow rounded-50">
             <div class="card-body py-4 px-5">
-              <h6 class="mb-3 font-weight-heavy text-black-50">2 days ago</h6>
+              <h6 class="mb-3 font-weight-heavy text-black-50 d-inline">
+                2 days ago <small class="fas fa-info-circle my-auto"></small>
+              </h6>
               <ng-container *ngFor="let item of [].constructor(5); let j = index">
                 <div class="card border rounded-0 mt-1">
                   <div class="card-body px-2">
                     <section class="d-flex justify-content-between px-3">
-                      <i
-                        *ngIf="j % 2 === 0"
-                        class="
-                          fa-solid fa-paperclip
-                          top-0
-                          text--size-20 text-warning-dark
-                          my-auto
-                          me-2
-                          position-absolute
-                        "
-                        style="left: -5px"
-                      ></i>
                       <div class="my-auto d-flex justify-content-start">
                         <i
                           class="fa-solid my-auto me-2"
@@ -62,9 +52,9 @@
                           <input [id]="'status'" type="checkbox" class="switch" [checked]="true" />
                           <label [htmlFor]="'status'" class="text--size-15 font-weight-bold"></label>
                         </span>
-                        <span class="my-auto d-inline-flex ms-3">
+                        <span class="my-auto d-inline-flex ms-4">
                           <i
-                            class="fas fa-edit text-secondary my-auto me-2 cursor-pointer"
+                            class="fas fa-edit text-secondary my-auto me-3 cursor-pointer"
                             (click)="expenseModal({ data: '' })"
                           ></i>
                           <i class="fas fa-trash-alt my-auto text-danger-dark cursor-pointer"></i>

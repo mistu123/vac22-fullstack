@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-9 mx-auto">
         <div class="d-flex justify-content-between">
-          <h3 class="text-white font-weight-bolder my-auto">All Categories</h3>
+          <h3 class="text-white font-weight-bolder my-auto">Categories</h3>
           <button class="btn btn-warning font-weight-bolder d-inline-flex" (click)="categoryModal('')">
             <i class="fas fa-plus my-auto me-2"></i>
             <span class="my-auto">Category</span>
@@ -23,9 +23,9 @@
                         <input [id]="'status'" type="checkbox" class="switch" [checked]="true" />
                         <label [htmlFor]="'status'" class="text--size-15 font-weight-bold"></label>
                       </span>
-                      <span class="my-auto d-inline-flex ms-3">
+                      <span class="my-auto d-inline-flex ms-4">
                         <i
-                          class="fas fa-edit text-secondary my-auto me-2 cursor-pointer"
+                          class="fas fa-edit text-secondary my-auto me-3 cursor-pointer"
                           (click)="categoryModal({ data: '' })"
                         ></i>
                         <i class="fas fa-trash-alt my-auto text-danger-dark cursor-pointer"></i>
