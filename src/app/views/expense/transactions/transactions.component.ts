@@ -16,6 +16,7 @@ export class TransactionsComponent implements OnInit {
     this.fetchTransactionList();
   }
 
+  // trigger edit / new based on data object
   expenseModal = (obj) => {
     this.selectedExpense = { ...this.selectedExpense, trigger: true, data: {} };
     if (obj) {

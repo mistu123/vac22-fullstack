@@ -17,7 +17,7 @@ export class ExpenseManageModalComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     if (this.selectedExpense.trigger) {
-      this.config.isEdit = Object.keys(this.selectedExpense.data).length;
+      this.config.isEdit = Object.keys(this.selectedExpense.data).length; // true / false
       this.expenseManageModal.show();
     }
   }

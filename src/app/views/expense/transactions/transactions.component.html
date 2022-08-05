@@ -58,7 +58,7 @@
                       <span class="my-auto d-inline-flex ms-4">
                         <i
                           class="fas fa-edit text-secondary my-auto me-3 cursor-pointer"
-                          (click)="expenseModal({ data: '' })"
+                          (click)="expenseModal({ transactionId: transaction.id })"
                         ></i>
                         <i class="fas fa-trash-alt my-auto text-danger-dark cursor-pointer"></i>
                       </span>
@@ -75,4 +75,5 @@
   </div>
 </div>
 
+<!--expense modal sidesheet-->
 <app-expense-manage-modal [selectedExpense]="selectedExpense"></app-expense-manage-modal>
