@@ -24,38 +24,48 @@
               <button
                 dropdownToggle
                 type="button"
-                class="btn shadow-none btn-outline-dark font-weight-bold dropdown-toggle btn-sm"
-                aria-controls="dropdown-basic"
+                [ngClass]="transactionDetails.selectedCategory.id ? 'btn-dark' : 'btn-outline-dark '"
+                class="btn shadow-none font-weight-bold dropdown-toggle btn-sm"
               >
-                Select From List <span class="caret"></span>
+                {{
+                  transactionDetails.selectedCategory.id
+                    ? transactionDetails.selectedCategory.name
+                    : 'Select From List '
+                }}
+                <span class="caret"></span>
               </button>
-              <ul *dropdownMenu class="dropdown-menu shadow border-0">
-                <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
-                <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
-                <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
-                <li class="divider dropdown-divider"></li>
-                <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
+              <ul *dropdownMenu class="dropdown-menu shadow border-0 overflow-auto" style="max-height: 200px">
+                <ng-container *ngFor="let category of categoryList; let i = index">
+                  <li class="cursor-pointer" (click)="transactionDetails.selectedCategory = category">
+                    <a class="dropdown-item font-weight-bold">{{ category.name }}</a>
+                  </li>
+                </ng-container>
               </ul>
             </div>
           </div>
           <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Amount</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" />
+            <label class="form-label">Amount</label>
+            <input type="text" class="form-control" [(ngModel)]="transactionDetails.amount" />
           </div>
 
           <div class="mb-3">
             <label class="form-label">Select Date</label>
             <div class="d-block">
-              <bs-datepicker-inline
-                [bsConfig]="{ containerClass: 'theme-orange' }"
-                [bsValue]="config.bsInlineValue"
-              ></bs-datepicker-inline>
+              <input
+                type="text"
+                [readOnly]="true"
+                [(ngModel)]="transactionDetails.date"
+                [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                placeholder="Datepicker"
+                class="form-control"
+                bsDatepicker
+              />
             </div>
           </div>
 
           <div class="mb-3">
             <label class="form-label">Description</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea class="form-control" [(ngModel)]="transactionDetails.description" rows="3"></textarea>
           </div>
 
           <div class="mb-3">
@@ -73,20 +83,48 @@
                 btn-dark
               "
             >
-              <input type="file" [multiple]="true" accept="*" class="overflow-hidden border-0 position-absolute p-0" />
+              <input
+                type="file"
+                (change)="handleFileInput($event)"
+                [multiple]="true"
+                accept="image/jpeg,.pdf"
+                class="overflow-hidden border-0 position-absolute p-0"
+              />
               <ng-container> <i class="far fa-folder-open me-2"></i>Browse File </ng-container>
             </label>
           </div>
 
+          <ul class="list-group list-group-flush" *ngIf="transactionDetails.attachment.length">
+            <li
+              *ngFor="let item of transactionDetails.attachment"
+              class="list-group-item d-inline-flex justify-content-between"
+            >
+              <img
+                [src]="item['fileUrl']"
+                *ngIf="item['fileUrl'] && item.type === 'image/jpeg'"
+                alt="image"
+                [width]="20"
+                class="my-auto mr-2"
+              />
+              <span class="text-truncate my-auto" style="max-width: 200px">
+                <span class="font-weight-bolder">{{ item.name }}</span>
+                <b class="d-block">{{ item._size }}</b>
+              </span>
+              <i class="fas fa-trash-alt text-danger-dark my-auto cursor-pointer" *ngIf="!item['fileUrl']"></i>
+            </li>
+          </ul>
+
           <div class="mt-4 mb-3 ps-0 form-check">
             <span class="switch switch-success switch-xs">
               <label></label>
-              <input [id]="'expense-status'" type="checkbox" class="switch" [checked]="true" />
+              <input [id]="'expense-status'" type="checkbox" class="switch" [(ngModel)]="transactionDetails.status" />
               <label [htmlFor]="'expense-status'" class="text--size-15 font-weight-bold">Status</label>
             </span>
           </div>
 
-          <button type="submit" class="btn btn-warning mt-4 w-100 font-weight-bold">Save Changes</button>
+          <button type="button" class="btn btn-warning mt-4 w-100 font-weight-bold" (click)="saveTransaction()">
+            Save Changes
+          </button>
         </section>
       </div>
     </div>
