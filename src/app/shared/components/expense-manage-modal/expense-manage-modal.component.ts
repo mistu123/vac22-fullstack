@@ -3,6 +3,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { CategoryService } from '../../services/category/category.service';
 import { UtilService } from '../../services/util/util.service';
 import { FileService } from '../../services/file/file.service';
+import { TransactionService } from '../../services/transaction/transaction.service';
 
 @Component({
   selector: 'app-expense-manage-modal',
@@ -14,10 +15,22 @@ export class ExpenseManageModalComponent implements OnChanges {
   @ViewChild('expenseManageModal') private expenseManageModal: ModalDirective;
 
   transactionDetails: any = {};
+  validation: any = {
+    description: false,
+    selectedCategory: false,
+    amount: false,
+    date: false,
+    status: false,
+  };
   categoryList: any = [];
   config: any = { isLoading: false, isEdit: false };
 
-  constructor(private category: CategoryService, private util: UtilService, private file: FileService) {
+  constructor(
+    private category: CategoryService,
+    private util: UtilService,
+    private file: FileService,
+    private transaction: TransactionService
+  ) {
     this.resetFormData();
   }
 
@@ -45,7 +58,8 @@ export class ExpenseManageModalComponent implements OnChanges {
             }
           });
 
-          ['category_id', 'type', 'updated_on', 'created_on', 'user_id'].forEach((key) => {
+          let deleteKeys = ['category_id', 'type', 'updated_on', 'created_on', 'user_id'];
+          deleteKeys.forEach((key) => {
             delete this.transactionDetails[key];
           });
         }
@@ -68,7 +82,6 @@ export class ExpenseManageModalComponent implements OnChanges {
   // reset form data
   resetFormData = () => {
     this.transactionDetails = {
-      id: '',
       description: '',
       selectedCategory: {},
       amount: '',
@@ -79,12 +92,27 @@ export class ExpenseManageModalComponent implements OnChanges {
   };
 
   // save transaction details
-  saveTransaction = async () => {
-    this.uploadFiles().then((response) => {
-      console.log(response);
-    });
+  prepareTransaction = async () => {
+    if (this.checkValidation()) {
+      if (this.transactionDetails.attachment.length) {
+        this.uploadFiles().then(() => {
+          this.saveTransactionDetails();
+        });
+      } else {
+        this.saveTransactionDetails();
+      }
+    }
   };
 
+  saveTransactionDetails = () => {
+    this.transactionDetails = {
+      ...this.transactionDetails,
+      files: JSON.stringify(this.transactionDetails.attachment),
+    };
+    console.log(this.transactionDetails);
+  };
+
+  // upload files
   uploadFiles = async () => {
     const promiseList = [];
     this.transactionDetails.attachment.forEach((key, index) => {
@@ -103,7 +131,7 @@ export class ExpenseManageModalComponent implements OnChanges {
     });
   };
 
-  // handle file input
+  // handle file input on browse button click
   handleFileInput = (event) => {
     if (event.target.files.length) {
       this.transactionDetails.attachment = [];
@@ -114,5 +142,17 @@ export class ExpenseManageModalComponent implements OnChanges {
         );
       }
     }
+  };
+
+  // Validation checker of input elements
+  checkValidation = () => {
+    this.validation = {
+      ...this.validation,
+      description: !this.transactionDetails['description'].trim().length,
+      date: !this.transactionDetails.date,
+      amount: !this.transactionDetails.amount.trim().length,
+      selectCategory: !Object.keys(this.transactionDetails.selectedCategory).length,
+    };
+    return Object.keys(this.validation).every((k) => !this.validation[k]);
   };
 }
