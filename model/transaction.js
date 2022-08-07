@@ -41,7 +41,7 @@ class Transaction {
     // fetch transaction(s) list
     fetchTransactionList(obj) {
         let sql = `SELECT exc.name, exc.type, ext.* FROM expense_transaction as ext LEFT JOIN expense_category`+
-            ` as exc ON ext.category_id = exc.id WHERE ext.status = '${1}' AND ext.user_id = '${obj.userId}'` ;
+            ` as exc ON ext.category_id = exc.id WHERE ext.user_id = '${obj.userId}'` ;
         let conditionalCount = 0;
 
         if (obj.id) {
