@@ -9,7 +9,7 @@ import { TransactionService } from '../../../shared/services/transaction/transac
 export class TransactionsComponent implements OnInit {
   constructor(private transaction: TransactionService) {}
 
-  transactionList: any = [];
+  transactionList: any = { data: [], paginated: [], isLoading: false };
   selectedExpense: any = { trigger: false, data: {} };
 
   ngOnInit(): void {
@@ -20,15 +20,27 @@ export class TransactionsComponent implements OnInit {
   expenseModal = (obj) => {
     this.selectedExpense = { ...this.selectedExpense, trigger: true, data: {} };
     if (obj) {
-      this.selectedExpense = { ...this.selectedExpense, data: obj };
+      ['type', 'updated_on', 'created_on', 'user_id'].forEach((key) => {
+        delete obj[key];
+      });
+      this.selectedExpense = {
+        ...this.selectedExpense,
+        data: {
+          ...obj,
+          date: new Date(obj.date),
+          attachment: obj.attachment === 'NULL' ? [] : JSON.parse(obj.attachment),
+        },
+      };
     }
   };
 
   // fetch all transactions
   fetchTransactionList = () => {
+    this.transactionList.isLoading = true;
     this.transaction.fetchTransactionList({}).then((response) => {
+      this.transactionList.isLoading = false;
       if (response.flag && response.result.length) {
-        this.transactionList = response.result;
+        this.transactionList.data = response.result;
       }
     });
   };

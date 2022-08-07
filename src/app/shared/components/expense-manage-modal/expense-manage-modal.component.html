@@ -42,10 +42,14 @@
                 </ng-container>
               </ul>
             </div>
+            <small class="d-block text-danger font-weight-bolder" *ngIf="validation.selectedCategory"
+              >Not a valid category</small
+            >
           </div>
           <div class="mb-3">
             <label class="form-label">Amount</label>
-            <input type="text" class="form-control" [(ngModel)]="transactionDetails.amount" />
+            <input type="number" class="form-control" [(ngModel)]="transactionDetails.amount" />
+            <small class="text-danger font-weight-bold d-block" *ngIf="validation.amount">No a valid amount</small>
           </div>
 
           <div class="mb-3">
@@ -65,7 +69,10 @@
 
           <div class="mb-3">
             <label class="form-label">Description</label>
-            <textarea class="form-control" [(ngModel)]="transactionDetails.description" rows="3"></textarea>
+            <textarea class="form-control" [(ngModel)]="transactionDetails.description" rows="2"></textarea>
+            <small class="text-danger font-weight-bold d-block" *ngIf="validation.description"
+              >No a valid description</small
+            >
           </div>
 
           <div class="mb-3">
@@ -97,22 +104,48 @@
           <ul class="list-group list-group-flush" *ngIf="transactionDetails.attachment.length">
             <li
               *ngFor="let item of transactionDetails.attachment"
-              class="list-group-item d-inline-flex justify-content-between"
+              class="list-group-item d-inline-flex justify-content-start"
             >
               <img
                 [src]="item['fileUrl']"
                 *ngIf="item['fileUrl'] && item.type === 'image/jpeg'"
                 alt="image"
                 [width]="20"
-                class="my-auto mr-2"
+                class="my-auto me-2"
               />
-              <span class="text-truncate my-auto" style="max-width: 200px">
+              <small class="text-truncate my-auto" style="max-width: 200px">
                 <span class="font-weight-bolder">{{ item.name }}</span>
                 <b class="d-block">{{ item._size }}</b>
-              </span>
+              </small>
               <i class="fas fa-trash-alt text-danger-dark my-auto cursor-pointer" *ngIf="!item['fileUrl']"></i>
             </li>
           </ul>
+
+          <ng-container *ngIf="transactionDetails.files.length">
+            <h6 class="font-weight-bolder">
+              To be upload files:
+              <span class="text-danger">{{ transactionDetails.files.length }}</span>
+            </h6>
+            <ul class="list-group list-group-flush">
+              <li
+                *ngFor="let item of transactionDetails.files"
+                class="list-group-item d-inline-flex justify-content-between"
+              >
+                <img
+                  [src]="item['fileUrl']"
+                  *ngIf="item['fileUrl'] && item.type === 'image/jpeg'"
+                  alt="image"
+                  [width]="20"
+                  class="my-auto me-2"
+                />
+                <small class="text-truncate my-auto" style="max-width: 200px">
+                  <span class="font-weight-bolder">{{ item.name }}</span>
+                  <b class="d-block">{{ item._size }}</b>
+                </small>
+                <i class="fas fa-trash-alt text-danger-dark my-auto cursor-pointer" *ngIf="!item['fileUrl']"></i>
+              </li>
+            </ul>
+          </ng-container>
 
           <div class="mt-4 mb-3 ps-0 form-check">
             <span class="switch switch-success switch-xs">

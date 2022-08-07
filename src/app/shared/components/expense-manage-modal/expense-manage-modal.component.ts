@@ -38,44 +38,32 @@ export class ExpenseManageModalComponent implements OnChanges {
   fetchCategoryList = () => {
     this.category.fetchCategoryList({}).then((response) => {
       if (response.flag && response.result.length) {
-        this.categoryList = this.util.sortArrayByKey(response.result, 'created_on');
-        this.config.isEdit = !!this.selectedExpense.data.category_id; // true / false
-        if (this.config.isEdit) {
-          this.transactionDetails = JSON.parse(
-            JSON.stringify({
-              ...this.selectedExpense.data,
-              date: new Date(this.selectedExpense.data.date),
-              attachment:
-                this.selectedExpense.data.attachment !== 'NULL' && this.selectedExpense.data.attachment.length
-                  ? this.selectedExpense.data.attachment
-                  : [],
-            })
-          );
-
-          this.categoryList.forEach((category) => {
-            if (category.id === this.transactionDetails.category_id) {
-              this.transactionDetails.selectedCategory = category;
-            }
-          });
-
-          let deleteKeys = ['category_id', 'type', 'updated_on', 'created_on', 'user_id'];
-          deleteKeys.forEach((key) => {
-            delete this.transactionDetails[key];
-          });
-        }
+        this.categoryList = response.result;
+        this.categoryList.forEach((category) => {
+          if (category.id === this.transactionDetails.category_id) {
+            this.transactionDetails.selectedCategory = category;
+          }
+        });
       }
     });
   };
 
   ngOnChanges(): void {
     if (this.selectedExpense.trigger) {
-      this.resetFormData();
       this.fetchCategoryList();
+      this.config.isEdit = !!this.selectedExpense.data.category_id; // true / false
+      if (this.config.isEdit) {
+        this.transactionDetails = {
+          ...this.transactionDetails,
+          ...JSON.parse(JSON.stringify(this.selectedExpense.data)),
+        };
+      }
       this.expenseManageModal.show();
     }
   }
 
   closeModal = () => {
+    this.resetFormData();
     this.expenseManageModal.hide();
   };
 
@@ -88,14 +76,17 @@ export class ExpenseManageModalComponent implements OnChanges {
       date: new Date(),
       status: true,
       attachment: [],
+      files: [],
     };
   };
 
   // save transaction details
   prepareTransaction = async () => {
     if (this.checkValidation()) {
-      if (this.transactionDetails.attachment.length) {
+      if (this.transactionDetails.files.length) {
         this.uploadFiles().then(() => {
+          this.transactionDetails.attachment = this.transactionDetails.attachment.concat(this.transactionDetails.files);
+          this.transactionDetails.files = [];
           this.saveTransactionDetails();
         });
       } else {
@@ -105,26 +96,23 @@ export class ExpenseManageModalComponent implements OnChanges {
   };
 
   saveTransactionDetails = () => {
-    this.transactionDetails = {
-      ...this.transactionDetails,
-      files: JSON.stringify(this.transactionDetails.attachment),
-    };
     console.log(this.transactionDetails);
   };
 
   // upload files
   uploadFiles = async () => {
     const promiseList = [];
-    this.transactionDetails.attachment.forEach((key, index) => {
-      const sendRequest = this.file.fileUploader(this.transactionDetails.attachment[index]);
+    this.transactionDetails.files.forEach((key, index) => {
+      const sendRequest = this.file.fileUploader(this.transactionDetails.files[index]);
       promiseList.push(sendRequest);
     });
     return await Promise.all(promiseList).then(async (responseArray) => {
       responseArray.forEach((key, index) => {
-        this.transactionDetails.attachment[index] = {
+        this.transactionDetails.files[index] = {
+          ...this.transactionDetails.files[index],
           fileUrl: key.resourceObject,
-          type: this.transactionDetails.attachment[index].type,
-          name: this.transactionDetails.attachment[index].name,
+          name: this.transactionDetails.files[index].name,
+          type: this.transactionDetails.files[index].type,
         };
       });
       return await this.transactionDetails.attachment;
@@ -134,12 +122,10 @@ export class ExpenseManageModalComponent implements OnChanges {
   // handle file input on browse button click
   handleFileInput = (event) => {
     if (event.target.files.length) {
-      this.transactionDetails.attachment = [];
+      this.transactionDetails.files = [];
       for (let i = 0; i < event.target.files.length; i++) {
-        this.transactionDetails.attachment.push(event.target.files[i]);
-        this.transactionDetails.attachment[i]._size = this.util.fileSizeFormatter(
-          this.transactionDetails.attachment[i].size
-        );
+        this.transactionDetails.files.push(event.target.files[i]);
+        this.transactionDetails.files[i]._size = this.util.fileSizeFormatter(this.transactionDetails.files[i].size);
       }
     }
   };
@@ -148,10 +134,9 @@ export class ExpenseManageModalComponent implements OnChanges {
   checkValidation = () => {
     this.validation = {
       ...this.validation,
-      description: !this.transactionDetails['description'].trim().length,
-      date: !this.transactionDetails.date,
-      amount: !this.transactionDetails.amount.trim().length,
-      selectCategory: !Object.keys(this.transactionDetails.selectedCategory).length,
+      description: !(this.transactionDetails['description'].trim().length > 0),
+      amount: !/^[0-9]+$/.test(this.transactionDetails.amount),
+      selectedCategory: !Object.keys(this.transactionDetails.selectedCategory).length,
     };
     return Object.keys(this.validation).every((k) => !this.validation[k]);
   };
