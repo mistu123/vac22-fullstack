@@ -13,7 +13,7 @@ router.post("/manage", async (req, res, next) => {
         name: req.body.name,
         type: req.body.type,
         description: req.body.description,
-        status: req.body.status || 1,
+        status: req.body.status === 0 ? req.body.status : 1,
         userId: util.verifyToken(req,res).userId  // get userid from authorization header
     };
     // validate request
