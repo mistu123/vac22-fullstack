@@ -36,20 +36,6 @@ export class ExpenseManageModalComponent implements OnChanges {
     this.resetFormData();
   }
 
-  // fetch category List
-  fetchCategoryList = () => {
-    this.category.fetchCategoryList({}).then((response) => {
-      if (response.flag && response.result.length) {
-        this.categoryList = response.result;
-        this.categoryList.forEach((category) => {
-          if (category.id === this.transactionDetails.category_id) {
-            this.transactionDetails.selectedCategory = category;
-          }
-        });
-      }
-    });
-  };
-
   ngOnChanges(): void {
     if (this.selectedExpense.trigger) {
       this.fetchCategoryList();
@@ -63,6 +49,20 @@ export class ExpenseManageModalComponent implements OnChanges {
       this.expenseManageModal.show();
     }
   }
+
+  // fetch category List
+  fetchCategoryList = () => {
+    this.category.fetchCategoryList({ status: 1 }).then((response) => {
+      if (response.flag && response.result.length) {
+        this.categoryList = response.result;
+        this.categoryList.forEach((category) => {
+          if (category.id === this.transactionDetails.category_id) {
+            this.transactionDetails.selectedCategory = category;
+          }
+        });
+      }
+    });
+  };
 
   closeModal = () => {
     this.resetFormData();
@@ -83,7 +83,7 @@ export class ExpenseManageModalComponent implements OnChanges {
   };
 
   // save transaction details
-  prepareTransaction = async () => {
+  prepareTransaction = () => {
     if (this.checkValidation()) {
       if (this.transactionDetails.files.length) {
         this.uploadFiles().then(() => {
@@ -103,7 +103,6 @@ export class ExpenseManageModalComponent implements OnChanges {
       description: this.transactionDetails.description,
       categoryId: this.transactionDetails.selectedCategory.id,
       date: moment(this.transactionDetails.date).format('YYYY-MM-DD'),
-      status: this.transactionDetails.status === false ? 0 : 1,
       attachment: JSON.stringify(this.transactionDetails.attachment),
     };
     if (this.config.isEdit) {
@@ -163,7 +162,7 @@ export class ExpenseManageModalComponent implements OnChanges {
     this.validation = {
       ...this.validation,
       description: !(this.transactionDetails['description'].trim().length > 0),
-      amount: !/^[0-9]+$/.test(this.transactionDetails.amount),
+      amount: !this.util.IsNumeric(this.transactionDetails.amount),
       selectedCategory: !Object.keys(this.transactionDetails.selectedCategory).length,
     };
     return Object.keys(this.validation).every((k) => !this.validation[k]);

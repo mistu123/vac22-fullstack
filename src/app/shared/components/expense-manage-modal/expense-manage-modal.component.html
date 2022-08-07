@@ -165,14 +165,6 @@
             </ul>
           </ng-container>
 
-          <div class="mt-4 mb-3 ps-0 form-check">
-            <span class="switch switch-success switch-xs">
-              <label></label>
-              <input [id]="'expense-status'" type="checkbox" class="switch" [(ngModel)]="transactionDetails.status" />
-              <label [htmlFor]="'expense-status'" class="text--size-15 font-weight-bold">Status</label>
-            </span>
-          </div>
-
           <button type="button" class="btn btn-warning mt-4 w-100 font-weight-bold" (click)="prepareTransaction()">
             Save Changes
           </button>

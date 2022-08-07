@@ -35,9 +35,9 @@
                     <section class="d-flex justify-content-between px-3">
                       <div class="my-auto d-flex justify-content-start">
                         <i
-                          [tooltip]="transaction.type + ' Transaction'"
+                          [tooltip]="'This is a ' + transaction.type.toLowerCase() + ' transaction'"
                           [placement]="'top'"
-                          class="fa-solid my-auto me-3 text--size-20"
+                          class="fa-solid my-auto me-3 text--size-22"
                           [ngClass]="
                             transaction.type === 'DEBIT'
                               ? 'fa-circle-arrow-down text-danger'
@@ -45,20 +45,50 @@
                           "
                         ></i>
                         <div class="my-auto">
-                          <h5 class="font-weight-bold mb-0">{{ transaction.description }}</h5>
-                          <span class="text-warning-dark font-weight-heavy text--size-12">
-                            TXN ID: <b class="font-weight-bolder text-uppercase">{{ transaction.transaction_id }}</b>
-                          </span>
+                          <h6 class="font-weight-bolder mb-0">{{ transaction.description }}</h6>
+                          <div
+                            class="
+                              text-theme-primary-dark
+                              badge
+                              bg-theme-primary-light
+                              d-inline
+                              font-weight-heavy
+                              text--size-12
+                            "
+                          >
+                            <i class="fa-solid fa-bolt-lightning my-auto me-1"></i>
+                            <span class="my-auto">
+                              TXN ID: <b class="font-weight-bolder text-uppercase">{{ transaction.transaction_id }}</b>
+                            </span>
+                          </div>
+                          <div
+                            class="
+                              text-warning-dark
+                              font-weight-heavy
+                              badge
+                              bg-warning-light
+                              d-inline
+                              text--size-12
+                              ms-2
+                            "
+                          >
+                            <i class="fa-solid fa-calendar my-auto me-1"></i>
+                            <span class="my-auto">
+                              Date:
+                              <b class="font-weight-bolder text-uppercase">{{
+                                moment(transaction.date).format('MMM Do YY')
+                              }}</b>
+                            </span>
+                          </div>
                         </div>
                       </div>
                       <div class="d-flex my-auto">
                         <small
                           class="
                             badge
-                            bg-info-light
-                            rounded-0
-                            border border-info
-                            text-theme-primary-dark
+                            bg-success-light
+                            border border-success
+                            text-success-dark
                             font-weight-heavy
                             text--size-12 text-uppercase
                             my-auto
@@ -70,11 +100,6 @@
                           <!--[ngClass]="j % 2 === 0 ? 'text-danger' : 'text-success'"-->
                           ₹{{ transaction.amount }}</b
                         >
-                        <span class="switch switch-success switch-xs my-auto ms-3">
-                          <label></label>
-                          <input [id]="'status'" type="checkbox" class="switch" [checked]="transaction.status" />
-                          <label [htmlFor]="'status'" class="text--size-15 font-weight-bold"></label>
-                        </span>
                         <span class="my-auto d-inline-flex ms-4">
                           <i
                             class="fas fa-edit text-secondary my-auto me-3 cursor-pointer"

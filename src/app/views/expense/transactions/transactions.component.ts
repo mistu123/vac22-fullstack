@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TransactionService } from '../../../shared/services/transaction/transaction.service';
+import moment from 'moment';
+import { UtilService } from '../../../shared/services/util/util.service';
 
 @Component({
   selector: 'app-expense-transactions',
@@ -7,8 +9,9 @@ import { TransactionService } from '../../../shared/services/transaction/transac
   styleUrls: ['./transactions.component.css'],
 })
 export class TransactionsComponent implements OnInit {
-  constructor(private transaction: TransactionService) {}
+  constructor(private transaction: TransactionService, private util: UtilService) {}
 
+  moment: any = moment;
   transactionList: any = { data: [], paginated: [], isLoading: false };
   selectedExpense: any = { trigger: false, data: {} };
 
@@ -44,12 +47,14 @@ export class TransactionsComponent implements OnInit {
 
   // update list on event trigger (create/update)
   refreshTransactionList = (data) => {
-    if (data.id && this.transactionList.data.length) {
-      this.transactionList.data.filter((key, index) => {
-        if (key.id === data.id) {
-          this.transactionList.data[index] = { ...this.transactionList.data[index], ...data };
-        }
-      });
+    if (this.transactionList.data.length) {
+      const filterResult = this.transactionList.data.filter((key) => key.id === data.id);
+      if (filterResult.length) {
+        const findIndex = this.transactionList.data.indexOf(filterResult[0]);
+        this.transactionList.data[findIndex] = { ...this.transactionList.data[findIndex], ...data };
+      } else {
+        this.transactionList.data.push(data);
+      }
     } else {
       this.transactionList.data.push(data);
     }
