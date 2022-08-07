@@ -44,7 +44,6 @@ export class TransactionsComponent implements OnInit {
 
   // update list on event trigger (create/update)
   refreshTransactionList = (data) => {
-    console.log(data);
     if (data.id && this.transactionList.data.length) {
       this.transactionList.data.filter((key, index) => {
         if (key.id === data.id) {
