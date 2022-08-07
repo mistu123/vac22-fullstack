@@ -24,7 +24,7 @@ class Category {
         if (obj.id) {
             sql = sql + ` AND id = '${obj.id}'`;
         }
-        if (obj.status || obj.status === 0) {
+        if (obj.status) {
             sql = sql + ` AND status = '${obj.status}'`;
         }
         return sql;

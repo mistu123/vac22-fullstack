@@ -13,7 +13,7 @@ router.post("/manage", async (req, res, next) => {
         name: req.body.name,
         type: req.body.type,
         description: req.body.description,
-        status: req.body.status === 0 ? req.body.status : 1,
+        status: req.body.status === false ? 0 : 1,
         userId: util.verifyToken(req,res).userId  // get userid from authorization header
     };
     // validate request
@@ -54,7 +54,8 @@ router.post("/list", async (req, res, next) => {
     let category = new Category();
     let obj = {
         id: req.body.id,
-        status: req.body.status,
+        status: (req.body.status === false || req.body.status === 0) ? 0 :
+            (req.body.status === true || req.body.status === 1) ? 1 : req.body.status,
         userId: util.verifyToken(req,res).userId  // get userid from authorization header
     };
     // validate request
