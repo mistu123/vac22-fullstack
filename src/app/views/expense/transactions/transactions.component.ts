@@ -18,19 +18,13 @@ export class TransactionsComponent implements OnInit {
 
   // trigger edit / new based on data object
   expenseModal = (obj) => {
+    console.log(obj);
     this.selectedExpense = { ...this.selectedExpense, trigger: true, data: {} };
     if (obj) {
       ['type', 'updated_on', 'created_on', 'user_id'].forEach((key) => {
         delete obj[key];
       });
-      this.selectedExpense = {
-        ...this.selectedExpense,
-        data: {
-          ...obj,
-          date: new Date(obj.date),
-          attachment: obj.attachment === 'NULL' ? [] : JSON.parse(obj.attachment),
-        },
-      };
+      this.selectedExpense.data = obj;
     }
   };
 
@@ -40,8 +34,31 @@ export class TransactionsComponent implements OnInit {
     this.transaction.fetchTransactionList({}).then((response) => {
       this.transactionList.isLoading = false;
       if (response.flag && response.result.length) {
-        this.transactionList.data = response.result;
+        response.result.forEach((key) => {
+          key.date = new Date(key.date);
+          key.attachment = key.attachment === 'NULL' ? [] : JSON.parse(key.attachment);
+          this.transactionList.data.push(key);
+        });
       }
     });
+  };
+
+  // update list on event trigger (create/update)
+  refreshTransactionList = (data) => {
+    this.selectedExpense = { ...this.selectedExpense, trigger: false, data: {} };
+    console.log(data);
+    if (this.transactionList.data.length) {
+      if (this.transactionList.data.filter((key) => key.id === data.id).length) {
+        this.transactionList.data.filter((key, index) => {
+          if (key.id === data.id) {
+            this.transactionList.data[index] = data;
+          }
+        });
+      } else {
+        this.transactionList.data.push(data);
+      }
+    } else {
+      this.transactionList.data.push(data);
+    }
   };
 }

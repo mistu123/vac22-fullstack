@@ -1,9 +1,10 @@
-import { Component, ViewChild, Input, OnChanges } from '@angular/core';
+import { Component, ViewChild, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { CategoryService } from '../../services/category/category.service';
 import { UtilService } from '../../services/util/util.service';
 import { FileService } from '../../services/file/file.service';
 import { TransactionService } from '../../services/transaction/transaction.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-expense-manage-modal',
@@ -13,6 +14,7 @@ import { TransactionService } from '../../services/transaction/transaction.servi
 export class ExpenseManageModalComponent implements OnChanges {
   @Input() selectedExpense: any = {};
   @ViewChild('expenseManageModal') private expenseManageModal: ModalDirective;
+  @Output() refreshTransactionList: EventEmitter<any> = new EventEmitter<any>();
 
   transactionDetails: any = {};
   validation: any = {
@@ -74,7 +76,7 @@ export class ExpenseManageModalComponent implements OnChanges {
       selectedCategory: {},
       amount: '',
       date: new Date(),
-      status: true,
+      status: 1,
       attachment: [],
       files: [],
     };
@@ -96,7 +98,33 @@ export class ExpenseManageModalComponent implements OnChanges {
   };
 
   saveTransactionDetails = () => {
-    console.log(this.transactionDetails);
+    const request = {
+      amount: this.transactionDetails.amount,
+      description: this.transactionDetails.description,
+      categoryId: this.transactionDetails.selectedCategory.id,
+      date: moment(this.transactionDetails.date).format('YYYY-MM-DD'),
+      status: this.transactionDetails.status,
+      attachment: JSON.stringify(this.transactionDetails.attachment),
+    };
+    if (this.config.isEdit) {
+      request['id'] = this.transactionDetails.id;
+    }
+    this.transaction.manageTransactionDetails(request).then((response) => {
+      if (response.flag) {
+        delete request['categoryId'];
+        this.refreshTransactionList.emit({
+          ...request,
+          attachment: this.transactionDetails.attachment,
+          id: this.transactionDetails.id || response.result.insertId,
+          name: this.transactionDetails.selectedCategory.name,
+          type: this.transactionDetails.selectedCategory.type,
+          category_id: this.transactionDetails.selectedCategory.id,
+        });
+        this.closeModal();
+      } else {
+        this.util.handleError(response.message);
+      }
+    });
   };
 
   // upload files
