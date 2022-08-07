@@ -53,6 +53,10 @@ class Transaction {
                 conditionalCount += 1;
                 sql = sql + (conditionalCount > 0 && ` AND`) + ` ext.date BETWEEN '${obj.startDate}' AND '${obj.endDate}'`
             }
+            if (obj.status === 0 || obj.status) {
+                conditionalCount += 1;
+                sql = sql + (conditionalCount > 0 && ` AND`) + ` ext.status = '${obj.status}'`;
+            }
             if (obj.amount) {
                 conditionalCount += 1;
                 sql = sql + (conditionalCount > 0 && ` AND`) + ` ext.amount = '${obj.amount}'`;

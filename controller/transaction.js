@@ -126,6 +126,7 @@ router.post("/list", async (req, res, next) => {
         startDate: req.body.startDate,
         endDate: req.body.endDate,
         type: req.body.type,
+        status: req.body.status,
         transaction_id: req.body.transaction_id,
         amount: req.body.amount,
         category_id: req.body.category_id,
