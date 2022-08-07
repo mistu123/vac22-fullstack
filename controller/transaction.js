@@ -31,8 +31,10 @@ router.post("/manage", async (req, res, next) => {
     }
     else {
         let category = new Category();
-        let request = JSON.parse(JSON.stringify(obj));
-        request['id'] = request.categoryId;
+        let request = {
+            id: obj.categoryId,
+            userId: obj.userId
+        };
         db.query(category.fetchCategoryList(request), async (err, response) => {
             if(!err) {
                 if (response.length) {
