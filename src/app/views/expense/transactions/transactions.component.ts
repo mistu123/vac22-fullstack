@@ -18,13 +18,12 @@ export class TransactionsComponent implements OnInit {
 
   // trigger edit / new based on data object
   expenseModal = (obj) => {
-    console.log(obj);
-    this.selectedExpense = { ...this.selectedExpense, trigger: true, data: {} };
+    this.selectedExpense = { trigger: true, data: {} };
     if (obj) {
+      this.selectedExpense.data = JSON.parse(JSON.stringify(obj));
       ['type', 'updated_on', 'created_on', 'user_id'].forEach((key) => {
-        delete obj[key];
+        delete this.selectedExpense.data[key];
       });
-      this.selectedExpense.data = obj;
     }
   };
 
@@ -45,18 +44,13 @@ export class TransactionsComponent implements OnInit {
 
   // update list on event trigger (create/update)
   refreshTransactionList = (data) => {
-    this.selectedExpense = { ...this.selectedExpense, trigger: false, data: {} };
     console.log(data);
-    if (this.transactionList.data.length) {
-      if (this.transactionList.data.filter((key) => key.id === data.id).length) {
-        this.transactionList.data.filter((key, index) => {
-          if (key.id === data.id) {
-            this.transactionList.data[index] = data;
-          }
-        });
-      } else {
-        this.transactionList.data.push(data);
-      }
+    if (data.id && this.transactionList.data.length) {
+      this.transactionList.data.filter((key, index) => {
+        if (key.id === data.id) {
+          this.transactionList.data[index] = { ...this.transactionList.data[index], ...data };
+        }
+      });
     } else {
       this.transactionList.data.push(data);
     }

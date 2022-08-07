@@ -103,7 +103,7 @@ export class ExpenseManageModalComponent implements OnChanges {
       description: this.transactionDetails.description,
       categoryId: this.transactionDetails.selectedCategory.id,
       date: moment(this.transactionDetails.date).format('YYYY-MM-DD'),
-      status: this.transactionDetails.status,
+      status: this.transactionDetails.status === false ? 0 : 1,
       attachment: JSON.stringify(this.transactionDetails.attachment),
     };
     if (this.config.isEdit) {

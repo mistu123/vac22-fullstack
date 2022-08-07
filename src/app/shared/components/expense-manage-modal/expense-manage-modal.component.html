@@ -1,11 +1,11 @@
 <div
-  class="modal fade side-sheet-modal-xs animate__animated animate__slideInRight"
+  class="modal fade side-sheet-modal-sm animate__animated animate__slideInRight"
   bsModal
   #expenseManageModal="bs-modal"
   [config]="{ backdrop: true, ignoreBackdropClick: true }"
 >
   <div class="modal-dialog position-fixed right-0 m-0 shadow-lg" style="max-width: max-content">
-    <div class="modal-content vh-100 rounded-0 border-0 overflow-auto">
+    <div class="modal-content vh-100 rounded-0 border-0 overflow-auto px-5 py-3">
       <div class="modal-header border-0 px-4 d-flex justify-content-between">
         <h4 class="my-auto font-weight-heavy">{{ config.isEdit ? 'Edit' : 'New' }} Transaction</h4>
         <button
@@ -101,48 +101,66 @@
             </label>
           </div>
 
+          <!--existing files(s)-->
           <ul class="list-group list-group-flush" *ngIf="transactionDetails.attachment.length">
             <li
               *ngFor="let item of transactionDetails.attachment"
-              class="list-group-item d-inline-flex justify-content-start"
+              class="list-group-item d-inline-flex justify-content-between"
             >
-              <img
-                [src]="item['fileUrl']"
-                *ngIf="item['fileUrl'] && item.type === 'image/jpeg'"
-                alt="image"
-                [width]="20"
-                class="my-auto me-2"
-              />
-              <small class="text-truncate my-auto" style="max-width: 200px">
-                <span class="font-weight-bolder">{{ item.name }}</span>
-                <b class="d-block">{{ item._size }}</b>
-              </small>
-              <i class="fas fa-trash-alt text-danger-dark my-auto cursor-pointer" *ngIf="!item['fileUrl']"></i>
+              <div class="d-flex justify-content-start my-auto">
+                <img
+                  [src]="item['fileUrl']"
+                  *ngIf="item['fileUrl'] && item.type === 'image/jpeg'"
+                  alt="image"
+                  [width]="25"
+                  class="my-auto me-2"
+                />
+                <i
+                  class="fa-solid fa-file-pdf my-auto me-2 text-danger text--size-25"
+                  *ngIf="item['fileUrl'] && item.type === 'application/pdf'"
+                ></i>
+                <small class="text-truncate my-auto" style="max-width: 200px">
+                  <span class="font-weight-bolder">{{ item.name }}</span>
+                  <b class="d-block">{{ item._size }}</b>
+                </small>
+              </div>
+              <i class="fas fa-trash-alt text-danger-dark my-auto cursor-pointer"></i>
             </li>
           </ul>
 
+          <hr
+            class="border border-light"
+            *ngIf="transactionDetails.files.length && transactionDetails.attachment.length"
+          />
+
+          <!--currently uploading-->
           <ng-container *ngIf="transactionDetails.files.length">
-            <h6 class="font-weight-bolder">
-              To be upload files:
-              <span class="text-danger">{{ transactionDetails.files.length }}</span>
+            <h6 class="font-weight-heavy text-danger-dark">
+              {{ transactionDetails.files.length }} files to be uploaded:
             </h6>
             <ul class="list-group list-group-flush">
               <li
                 *ngFor="let item of transactionDetails.files"
                 class="list-group-item d-inline-flex justify-content-between"
               >
-                <img
-                  [src]="item['fileUrl']"
-                  *ngIf="item['fileUrl'] && item.type === 'image/jpeg'"
-                  alt="image"
-                  [width]="20"
-                  class="my-auto me-2"
-                />
-                <small class="text-truncate my-auto" style="max-width: 200px">
-                  <span class="font-weight-bolder">{{ item.name }}</span>
-                  <b class="d-block">{{ item._size }}</b>
-                </small>
-                <i class="fas fa-trash-alt text-danger-dark my-auto cursor-pointer" *ngIf="!item['fileUrl']"></i>
+                <div class="d-flex justify-content-start my-auto">
+                  <img
+                    [src]="item['fileUrl']"
+                    *ngIf="item['fileUrl'] && item.type === 'image/jpeg'"
+                    alt="image"
+                    [width]="25"
+                    class="my-auto me-2"
+                  />
+                  <i
+                    class="fa-solid fa-file-pdf my-auto me-2 text-danger text--size-25"
+                    *ngIf="item['fileUrl'] && item.type === 'application/pdf'"
+                  ></i>
+                  <small class="text-truncate my-auto" style="max-width: 200px">
+                    <span class="font-weight-bolder">{{ item.name }}</span>
+                    <b class="d-block">{{ item._size }}</b>
+                  </small>
+                </div>
+                <i class="fas fa-trash-alt text-danger-dark my-auto cursor-pointer"></i>
               </li>
             </ul>
           </ng-container>
