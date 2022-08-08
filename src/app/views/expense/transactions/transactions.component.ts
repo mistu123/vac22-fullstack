@@ -59,4 +59,18 @@ export class TransactionsComponent implements OnInit {
       this.transactionList.data.push(data);
     }
   };
+
+  // delete a transaction
+  deleteTransaction = (transaction) => {
+    this.transactionList.data.filter((key, index) => {
+      if (key.id === transaction.id) {
+        this.transaction.deleteTransaction({ id: transaction.id }).then((response) => {
+          if (response.flag) {
+            this.transactionList.data.splice(index, 1);
+            this.util.handleSuccess(response.message);
+          }
+        });
+      }
+    });
+  };
 }

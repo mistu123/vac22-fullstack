@@ -31,7 +31,7 @@
             <ng-container *ngIf="!transactionList.isLoading">
               <ng-container *ngIf="transactionList.data.length">
                 <div class="card border rounded-0 mt-1" *ngFor="let transaction of transactionList.data; let j = index">
-                  <div class="card-body p-2">
+                  <div class="card-body px-2 py-3">
                     <section class="d-flex justify-content-between px-3">
                       <div class="my-auto d-flex justify-content-start">
                         <i
@@ -46,40 +46,26 @@
                         ></i>
                         <div class="my-auto">
                           <h6 class="font-weight-bolder mb-0">{{ transaction.description }}</h6>
-                          <div
-                            class="
-                              text-theme-primary-dark
-                              badge
-                              bg-theme-primary-light
-                              d-inline
-                              font-weight-heavy
-                              text--size-12
-                            "
-                          >
+                          <span class="my-auto d-inline text--size-12 me-2 text-theme-primary-dark">
                             <i class="fa-solid fa-bolt-lightning my-auto me-1"></i>
-                            <span class="my-auto">
-                              TXN ID: <b class="font-weight-bolder text-uppercase">{{ transaction.transaction_id }}</b>
-                            </span>
-                          </div>
-                          <div
-                            class="
-                              text-warning-dark
-                              font-weight-heavy
-                              badge
-                              bg-warning-light
-                              d-inline
-                              text--size-12
-                              ms-2
-                            "
+                            <b class="font-weight-bolder text-uppercase">{{ transaction.transaction_id }}</b>
+                          </span>
+                          <span class="my-auto text--size-12 ms-2 text-warning-dark">
+                            <i class="fa-solid fa-calendar my-auto"></i>
+                            <b class="font-weight-bolder text-uppercase">
+                              {{ moment(transaction.date).format('MMM DD, YYYY') }}
+                            </b>
+                          </span>
+                          <span
+                            *ngIf="transaction.attachment.length"
+                            class="mx-3 small d-inline-flex my-auto font-weight-bolder"
                           >
-                            <i class="fa-solid fa-calendar my-auto me-1"></i>
-                            <span class="my-auto">
-                              Date:
-                              <b class="font-weight-bolder text-uppercase">{{
-                                moment(transaction.date).format('MMM Do YY')
-                              }}</b>
+                            <span class="badge bg-danger my-auto me-1">
+                              {{ transaction.attachment.length }}
                             </span>
-                          </div>
+                            <i class="fa-solid fa-paperclip my-auto"></i>
+                            <span class="my-auto mx-1">attachments</span>
+                          </span>
                         </div>
                       </div>
                       <div class="d-flex my-auto">
@@ -105,7 +91,10 @@
                             class="fas fa-edit text-secondary my-auto me-3 cursor-pointer"
                             (click)="expenseModal(transaction)"
                           ></i>
-                          <i class="fas fa-trash-alt my-auto text-danger-dark cursor-pointer"></i>
+                          <i
+                            class="fas fa-trash-alt my-auto text-danger-dark cursor-pointer"
+                            (click)="deleteTransaction(transaction)"
+                          ></i>
                         </span>
                       </div>
                     </section>

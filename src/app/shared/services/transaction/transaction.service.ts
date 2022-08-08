@@ -48,4 +48,24 @@ export class TransactionService {
         this.util.handleError(error.error.message);
       });
   }
+
+  /**
+   * Delete Transaction
+   */
+  async deleteTransaction(request): Promise<any> {
+    return this.http
+      .post(environment.apiUrl + '/transaction/delete', request)
+      .toPromise()
+      .then((response) => {
+        response['flag'] = response['status'] === 200;
+        if (!response['flag']) {
+          this.util.handleError(response['message']);
+          return response;
+        }
+        return response;
+      })
+      .catch((error) => {
+        this.util.handleError(error.error.message);
+      });
+  }
 }
