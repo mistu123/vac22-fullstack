@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import jwt_decode from 'jwt-decode';
 import { UtilService } from '../util/util.service';
 
 @Injectable({

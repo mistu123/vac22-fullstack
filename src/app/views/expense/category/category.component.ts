@@ -29,8 +29,8 @@ export class CategoryComponent implements OnInit {
   fetchCategoryList = () => {
     this.categoryList.isLoading = true;
     this.category.fetchCategoryList({}).then((response) => {
+      this.categoryList.isLoading = false;
       if (response.flag && response.result.length) {
-        this.categoryList.isLoading = false;
         this.categoryList.data = this.util.sortArrayByKey(response.result, 'created_on');
       }
     });
