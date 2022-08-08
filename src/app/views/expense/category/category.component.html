@@ -12,42 +12,63 @@
 
         <div class="card my-3 border-0 shadow rounded-50">
           <!--<pre>{{categoryList | json}}</pre>-->
-          <div class="card-body py-4 px-5">
-            <ng-container *ngFor="let category of categoryList; let j = index">
-              <div class="card border rounded-0 mt-1">
-                <div class="card-body">
-                  <section class="d-flex justify-content-between px-3">
-                    <div class="my-auto">
-                      <h6 class="mb-0 font-weight-bolder">{{ category.name }}</h6>
-                      <small>{{ category.description }}</small>
-                    </div>
-                    <div class="d-flex justify-content-end my-auto">
-                      <small
-                        [ngClass]="
-                          category.type === 'DEBIT'
-                            ? 'bg-danger-light border-danger text-danger-dark'
-                            : 'bg-success-light border-success text-success-dark'
-                        "
-                        class="badge border font-weight-heavy text-uppercase my-auto me-3"
-                      >
-                        {{ category.type }}
-                      </small>
-                      <span class="switch switch-success switch-xs my-auto">
-                        <label></label>
-                        <input [id]="'status' + j" type="checkbox" class="switch" [(ngModel)]="category.status" />
-                        <label [htmlFor]="'status' + j" class="text--size-15 font-weight-bold"></label>
-                      </span>
-                      <span class="my-auto d-inline-flex ms-4">
-                        <i
-                          class="fas fa-edit text-secondary my-auto me-3 cursor-pointer"
-                          (click)="categoryModal(category)"
-                        ></i>
-                        <i class="fas fa-trash-alt my-auto text-danger-dark cursor-pointer"></i>
-                      </span>
-                    </div>
-                  </section>
+          <div class="card-body px-5">
+            <ng-container *ngIf="categoryList.isLoading">
+              <li *ngFor="let item of [].constructor(5); let i = index" class="list-group-item">
+                <div class="mb-2 card border-0 rounded-0">
+                  <div class="card-body p-0">
+                    <span class="content-loader d-block rounded" style="height: 60px"></span>
+                  </div>
                 </div>
-              </div>
+              </li>
+            </ng-container>
+
+            <ng-container *ngIf="!categoryList.isLoading">
+              <ng-container *ngFor="let category of categoryList.data; let j = index">
+                <div class="card border rounded-0 mt-1">
+                  <div class="card-body px-4 py-2">
+                    <section class="d-flex justify-content-between px-3">
+                      <div class="my-auto">
+                        <h6 class="mb-0 font-weight-bolder">{{ category.name }}</h6>
+                        <small>{{ category.description }}</small>
+                      </div>
+                      <div class="d-flex justify-content-end my-auto">
+                        <small
+                          [ngClass]="
+                            category.type === 'DEBIT'
+                              ? 'bg-danger-light border-danger text-danger-dark'
+                              : 'bg-success-light border-success text-success-dark'
+                          "
+                          class="badge border font-weight-heavy text-uppercase my-auto me-3"
+                        >
+                          {{ category.type }}
+                        </small>
+                        <small class="text-warning-dark font-weight-bold my-auto me-2" *ngIf="category.transactions">
+                          {{ category.transactions }} Transaction(s)
+                        </small>
+                        <span class="switch switch-success switch-xs my-auto mx-3">
+                          <label></label>
+                          <input
+                            (change)="updateCategory(category)"
+                            [id]="'status' + j"
+                            type="checkbox"
+                            class="switch"
+                            [(ngModel)]="category.status"
+                          />
+                          <label [htmlFor]="'status' + j" class="text--size-15 font-weight-bold"></label>
+                        </span>
+                        <span class="my-auto d-inline-flex">
+                          <i
+                            class="fas fa-edit text-secondary my-auto me-3 cursor-pointer"
+                            (click)="categoryModal(category)"
+                          ></i>
+                          <i class="fas fa-trash-alt my-auto text-danger-dark cursor-pointer"></i>
+                        </span>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+              </ng-container>
             </ng-container>
           </div>
         </div>

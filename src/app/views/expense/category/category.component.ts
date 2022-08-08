@@ -9,7 +9,7 @@ import { UtilService } from '../../../shared/services/util/util.service';
 })
 export class CategoryComponent implements OnInit {
   selectedCategory: any = { trigger: false, data: {} };
-  categoryList: any = [];
+  categoryList: any = { data: [], isLoading: false };
 
   constructor(private category: CategoryService, private util: UtilService) {}
 
@@ -27,23 +27,33 @@ export class CategoryComponent implements OnInit {
 
   // fetch category List
   fetchCategoryList = () => {
+    this.categoryList.isLoading = true;
     this.category.fetchCategoryList({}).then((response) => {
       if (response.flag && response.result.length) {
-        this.categoryList = this.util.sortArrayByKey(response.result, 'created_on');
+        this.categoryList.isLoading = false;
+        this.categoryList.data = this.util.sortArrayByKey(response.result, 'created_on');
       }
     });
   };
 
   // update list on event trigger (create/update)
   refreshCategoryList = (data) => {
-    if (data.id && this.categoryList.length) {
-      this.categoryList.filter((key, index) => {
+    if (data.id && this.categoryList.data.length) {
+      this.categoryList.data.filter((key, index) => {
         if (key.id === data.id) {
-          this.categoryList[index] = data;
+          this.categoryList.data[index] = data;
         }
       });
     } else {
-      this.categoryList.push(data);
+      this.categoryList.data.push(data);
     }
+  };
+
+  updateCategory = (category) => {
+    this.category.manageCategory(category).then((response) => {
+      if (response.flag) {
+        this.util.handleSuccess(response.message);
+      }
+    });
   };
 }
