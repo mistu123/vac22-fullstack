@@ -46,7 +46,10 @@
                         ></i>
                         <div class="my-auto">
                           <h6 class="font-weight-bolder mb-0">{{ transaction.description }}</h6>
-                          <span class="my-auto d-inline text--size-12 me-2 text-theme-primary-dark">
+                          <span
+                            class="my-auto d-inline text--size-12 me-2 text-theme-primary-dark"
+                            [tooltip]="'Transaction Id'"
+                          >
                             <i class="fa-solid fa-bolt-lightning my-auto me-1"></i>
                             <b class="font-weight-bolder text-uppercase">{{ transaction.transaction_id }}</b>
                           </span>
