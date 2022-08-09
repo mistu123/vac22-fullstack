@@ -19,7 +19,10 @@ class Category {
 
     // fetch category list all / by specific id
     fetchCategoryList(obj) {
-        let sql = `SELECT * FROM expense_category WHERE user_id = '${obj.userId}'`;
+        let sql = `SELECT exc.*, (select count(*) from expense_transaction ext `+
+            `WHERE exc.id = ext.category_id and ext.user_id = `+ `'${obj.userId}' `+
+            `and ext.status = '${1}') as transactions FROM expense_category as exc `+
+            `WHERE user_id = '${obj.userId}'`;
         // if category id exits
         if (obj.id) {
             sql = sql + ` AND id = '${obj.id}'`;
