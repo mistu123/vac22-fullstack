@@ -8,7 +8,7 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { SharedComponentsModule } from '../../shared/components/shared-components.module';
 import { TooltipModule } from 'ng2-tooltip-directive';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { NgChartsModule } from 'ng2-charts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [TransactionsComponent, CategoryComponent, DashboardComponent],
@@ -19,7 +19,7 @@ import { NgChartsModule } from 'ng2-charts';
     FormsModule,
     TooltipModule,
     SharedComponentsModule,
-    NgChartsModule,
+    NgxChartsModule,
   ],
 })
 export class ExpenseModule {}
